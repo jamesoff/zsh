@@ -4,6 +4,9 @@ zstyle ':prezto:module:editor' key-bindings 'emacs'
 # Auto convert .... to ../..
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
+# Prepare prompt theme
+autoload -Uz promptinit && promptinit
+fpath=(${ZDOTDIR:-$HOME}/local-plugins/prompt-sorin $fpath)
 source ~/.zplug/init.zsh
 
 ZSH_LOCAL_PLUGINS="~/.zshnew/local-plugins"
@@ -16,9 +19,10 @@ zplug "$ZSH_LOCAL_PLUGINS/history", from:local
 zplug "$ZSH_LOCAL_PLUGINS/directory", from:local
 zplug "$ZSH_LOCAL_PLUGINS/spectrum", from:local
 zplug "$ZSH_LOCAL_PLUGINS/utility", from:local, nice:5
-zplug "$ZSH_LOCAL_PLUGINS/prompt-sorin", from:local, nice:5
+#zplug "$ZSH_LOCAL_PLUGINS/prompt-sorin", from:local, nice:5
 
 zplug "zsh-users/zsh-completions"
+zplug "supercrabtree/k", use:"*.sh", hook-build:"chmod 755 k.sh"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 
 zplug load --verbose
@@ -34,6 +38,7 @@ setopt TRANSIENT_RPROMPT
 
 zstyle ':prezto:module:editor:info:keymap:primary' format ' %B%F{2}❯%f%b'
 
+prompt sorin
 
 # Thing to add to PATH, if they exist
 DIRS=(
