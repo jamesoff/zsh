@@ -1,15 +1,14 @@
-# Set the key mapping style to 'emacs' or 'vi'.
 zstyle ':prezto:module:editor' key-bindings 'emacs'
-
-# Auto convert .... to ../..
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 # Prepare prompt theme
+fpath=(${ZDOTDIR:-$HOME/.zsh}/local-plugins/prompt-sorin $fpath)
 autoload -Uz promptinit && promptinit
-fpath=(${ZDOTDIR:-$HOME}/local-plugins/prompt-sorin $fpath)
+
+# Load zplug and plugins
 source ~/.zplug/init.zsh
 
-ZSH_LOCAL_PLUGINS="~/.zshnew/local-plugins"
+ZSH_LOCAL_PLUGINS="~/.zsh/local-plugins"
 
 # borrowed from prezto
 zplug "$ZSH_LOCAL_PLUGINS/environment", from:local, nice:-10
@@ -19,13 +18,16 @@ zplug "$ZSH_LOCAL_PLUGINS/history", from:local
 zplug "$ZSH_LOCAL_PLUGINS/directory", from:local
 zplug "$ZSH_LOCAL_PLUGINS/spectrum", from:local
 zplug "$ZSH_LOCAL_PLUGINS/utility", from:local, nice:5
-#zplug "$ZSH_LOCAL_PLUGINS/prompt-sorin", from:local, nice:5
+zplug "$ZSH_LOCAL_PLUGINS/git", from:local
+zplug "mafredri/zsh-async"
+
+zplug "supercrabtree/k", use:"*.sh", hook-build:"chmod 755 k.sh"
+zplug "rupa/z", use:"z.sh"
 
 zplug "zsh-users/zsh-completions"
-zplug "supercrabtree/k", use:"*.sh", hook-build:"chmod 755 k.sh"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
 
-zplug load --verbose
+zplug load
 
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
@@ -34,11 +36,11 @@ unsetopt MAIL_WARNING
 setopt NOTIFY
 
 unsetopt AUTO_CD
+
+# Set up prompt
 setopt TRANSIENT_RPROMPT
-
-zstyle ':prezto:module:editor:info:keymap:primary' format ' %B%F{2}❯%f%b'
-
 prompt sorin
+zstyle ':prezto:module:editor:info:keymap:primary' format ' %B%F{2}%%%f%b'
 
 # Thing to add to PATH, if they exist
 DIRS=(
@@ -56,7 +58,6 @@ FILES=(
 	~/.iterm2_shell_integration.zsh
 	~/.fzf.zsh
 	~/.nvim/bundle/neoman.vim/scripts/neovim.zsh
-	/usr/local/etc/profile.d/z.sh
 	)
 
 export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
