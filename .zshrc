@@ -1,12 +1,23 @@
+if [ ! -d ~/.zplug ]; then
+	echo Installing zplug...
+	git clone git@github.com:zplug/zplug.git .zplug
+	source ~/.zplug/init.zsh
+	echo Installing plugins...
+	zplug install
+else
+	source ~/.zplug/init.zsh
+	if ! zplug check --verbose; then
+		echo Installing missing plugins...
+		zplug install
+	fi
+fi
+
 zstyle ':prezto:module:editor' key-bindings 'emacs'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 # Prepare prompt theme
 fpath=(${ZDOTDIR:-$HOME/.zsh}/local-plugins/prompt-sorin $fpath)
 autoload -Uz promptinit && promptinit
-
-# Load zplug and plugins
-source ~/.zplug/init.zsh
 
 ZSH_LOCAL_PLUGINS="~/.zsh/local-plugins"
 
