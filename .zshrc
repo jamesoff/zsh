@@ -3,13 +3,14 @@ if [ ! -d ~/.zplug ]; then
 	git clone git@github.com:zplug/zplug.git .zplug
 	source ~/.zplug/init.zsh
 	echo Installing plugins...
-	zplug install
+	ZPLUG_INSTALL_NEEDED=1
 else
 	source ~/.zplug/init.zsh
 	if ! zplug check --verbose; then
 		echo Installing missing plugins...
 		zplug install
 	fi
+	ZPLUG_INSTALL_NEEDED=0
 fi
 
 zstyle ':prezto:module:editor' key-bindings 'emacs'
@@ -37,6 +38,10 @@ zplug "rupa/z", use:"z.sh"
 
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", nice:10
+
+if [[ $ZPLUG_INSTALL_NEEDED == 1 ]]; then
+	zplug install
+fi
 
 zplug load
 
