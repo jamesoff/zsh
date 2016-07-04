@@ -29,6 +29,7 @@ zplug "$ZSH_LOCAL_PLUGINS/editor", from:local
 zplug "$ZSH_LOCAL_PLUGINS/history", from:local
 zplug "$ZSH_LOCAL_PLUGINS/directory", from:local
 zplug "$ZSH_LOCAL_PLUGINS/spectrum", from:local
+zplug "$ZSH_LOCAL_PLUGINS/completion", from:local
 zplug "$ZSH_LOCAL_PLUGINS/utility", from:local, nice:5
 zplug "$ZSH_LOCAL_PLUGINS/git", from:local
 zplug "mafredri/zsh-async"
