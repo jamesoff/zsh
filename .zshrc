@@ -6,10 +6,6 @@ if [ ! -d ~/.zplug ]; then
 	ZPLUG_INSTALL_NEEDED=1
 else
 	source ~/.zplug/init.zsh
-	if ! zplug check --verbose; then
-		echo Installing missing plugins...
-		zplug install
-	fi
 	ZPLUG_INSTALL_NEEDED=0
 fi
 
@@ -34,6 +30,7 @@ zplug "$ZSH_LOCAL_PLUGINS/utility", from:local, nice:5
 zplug "$ZSH_LOCAL_PLUGINS/git", from:local
 zplug "mafredri/zsh-async"
 
+zplug "$ZSH_LOCAL_PLUGINS/aws", from:local
 zplug "supercrabtree/k", use:"*.sh", hook-build:"chmod 755 k.sh"
 zplug "rupa/z", use:"z.sh"
 

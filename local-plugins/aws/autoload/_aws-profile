@@ -1,0 +1,5 @@
+#compdef aws-profile
+
+local -a options
+options=( "${(@f)$( sed -e '/^\[/p' -n ~/.aws/credentials | tr -d '[]' | sort )}" )
+_describe 'profiles' options
