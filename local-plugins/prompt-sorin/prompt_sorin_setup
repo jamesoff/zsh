@@ -60,7 +60,7 @@ function prompt_sorin_git_info {
 
 function prompt_sorin_precmd_async {
   if klist -t 2> /dev/null; then
-      _prompt_sorin_krb_status='🔒  '
+      _prompt_sorin_krb_status=' 🔒  '
   else
       _prompt_sorin_krb_status=''
   fi
@@ -84,7 +84,7 @@ function prompt_sorin_precmd {
   prompt_sorin_pwd
 
   # Define prompts.
-  RPROMPT='${_prompt_sorin_krb_status}${editor_info[overwrite]}%(?:: %F{1}⏎%f)${VIM:+" %B%F{6}V%f%b"}'
+  RPROMPT='${AWS_PROFILE:+"%F{3}$AWS_PROFILE%f"}${AWS_REGION:+" %F{6}$AWS_REGION%f%b"}${_prompt_sorin_krb_status}${editor_info[overwrite]}%(?:: %F{1}⏎%f)${VIM:+" %B%F{6}V%f%b"}'
 
   # Kill the old process of slow commands if it is still running.
   if (( _prompt_sorin_precmd_async_pid > 0 )); then
