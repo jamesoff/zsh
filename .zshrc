@@ -56,10 +56,6 @@ setopt TRANSIENT_RPROMPT
 prompt sorin
 zstyle ':prezto:module:editor:info:keymap:primary' format ' %B%F{2}%%%f%b'
 
-if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
-fi
-
 # Thing to add to PATH, if they exist
 DIRS=(
 	/usr/local/bin
