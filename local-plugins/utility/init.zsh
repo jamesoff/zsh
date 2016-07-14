@@ -195,3 +195,18 @@ function find-exec {
 function psu {
   ps -U "${1:-$LOGNAME}" -o 'pid,%cpu,%mem,command' "${(@)argv[2,-1]}"
 }
+
+function string_hash() {
+	HASHSTR=$1
+	HASHSIZE=$2
+
+	HASHVAL=0
+	for i in {1..${#HASHSTR}}; do;
+		THISCHAR=$HASHSTR[$i]
+		HASHVAL=$(( $HASHVAL + $((#THISCHAR)) * $i ))
+	done
+	HASHSIZE=$(( $HASHSIZE - 1 ))
+	HASHVAL=$(( $HASHVAL % $HASHSIZE ))
+	HASHVAL=$(( $HASHVAL + 1 ))
+	echo $HASHVAL
+}
