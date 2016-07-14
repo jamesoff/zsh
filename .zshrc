@@ -89,6 +89,7 @@ export COPYFILE_DISABLE=true
 
 export EDITOR=nvim
 export VISUAL=nvim
+export CLICOLOR=true
 
 export FZF_DEFAULT_OPTS='-e'
 export FZF_TMUX=0
