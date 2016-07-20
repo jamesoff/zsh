@@ -159,9 +159,11 @@ for f in $FILES; do
 	fi
 done
 
-function fix-ssh-agent () {
-	listener=$( \find /private/tmp/com.apple.launchd.* -name Listeners -type s ) && export SSH_AUTH_SOCK="$listener"
-}
+if [[ "$( uname )" == "Darwin" ]]; then
+	function fix-ssh-agent () {
+		listener=$( \find /private/tmp/com.apple.launchd.* -name Listeners -type s ) && export SSH_AUTH_SOCK="$listener"
+	}
+fi
 
 # override from emacs-forword-word for the autosuggest feature
 bindkey '^[f' forward-word
