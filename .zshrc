@@ -96,6 +96,13 @@ export FZF_TMUX=0
 
 [ -d ~/.config ] && export XDG_CONFIG_HOME=~/.config
 
+# Use ports/brew gcc if installed
+if [ -x /usr/local/bin/gcc ]; then
+	export CC=/usr/local/bin/gcc
+	export CXX=/usr/local/bin/gcc
+fi
+
+
 alias flake8="flake8 --ignore=E501"
 alias md5sum=md5
 hash nvim &> /dev/null && alias vim=nvim
