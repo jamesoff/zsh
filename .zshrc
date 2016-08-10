@@ -110,10 +110,6 @@ hash pygmentize &> /dev/null && alias cat="pygmentize -g"
 
 REPORTTIME=10
 
-function tidy_nagios() {
-	python ~/src/puppet/modules/nagios/tidy_nagios.py "$1" > "${1}_tmp" && mv "$1_tmp" "$1"
-}
-
 function agvim () {
 	CHOICE=$(ag --color $* | fzf -0 -1 --ansi)
 	if [ ! -z "$CHOICE" ]; then
