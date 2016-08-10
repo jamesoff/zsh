@@ -110,22 +110,6 @@ hash pygmentize &> /dev/null && alias cat="pygmentize -g"
 
 REPORTTIME=10
 
-function try_ssh () {
-	SUCCESS=0
-	while [ $SUCCESS -eq 0 ]; do
-		ssh -o "ConnectTimeout 30" -o "StrictHostKeyChecking no" $*
-		RESULT=$?
-		if [ $RESULT -ne 255 ]; then
-			SUCCESS=1
-		else
-			echo "--> SSH return code was $RESULT"
-			print "Waiting to retry ssh..."
-			sleep 10
-			echo "--> Retrying..."
-		fi
-	done
-}
-
 function brew-upgrade () {
 	brew update
 	brew outdated | fzf -m -n 1 --tac --header='Select formulae to upgrade with tab' | xargs brew upgrade
