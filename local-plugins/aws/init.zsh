@@ -8,3 +8,4 @@ function aws-profile() {
 	export AWS_PROFILE=$1
 }
 
+autoload watch-elb

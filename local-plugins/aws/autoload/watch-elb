@@ -1,0 +1,7 @@
+# vim: ft=zsh
+
+if [[ -z "$AWS_REGION" ]]; then
+	watch -n 10 "aws elb describe-instance-health --load-balancer-name "$1" | jq '.InstanceStates[].State' | sort | uniq -c"
+else
+	watch -n 10 "aws elb describe-instance-health --load-balancer-name "$1" --region "$AWS_REGION" | jq '.InstanceStates[].State' | sort | uniq -c"
+fi

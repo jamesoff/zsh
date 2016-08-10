@@ -114,11 +114,6 @@ function tidy_nagios() {
 	python ~/src/puppet/modules/nagios/tidy_nagios.py "$1" > "${1}_tmp" && mv "$1_tmp" "$1"
 }
 
-
-function watch_elb () {
-	watch -n 10 "aws elb describe-instance-health --load-balancer-name "$1" | jq '.InstanceStates[].State' | sort | uniq -c"
-}
-
 function agvim () {
 	CHOICE=$(ag --color $* | fzf -0 -1 --ansi)
 	if [ ! -z "$CHOICE" ]; then
