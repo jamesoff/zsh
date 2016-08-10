@@ -1,3 +1,7 @@
+fpath=( ~/.zsh/local-plugins/utility/autoload $fpath )
+
+autoload agvim
+
 #
 # Defines general aliases and functions.
 #

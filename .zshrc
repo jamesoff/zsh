@@ -110,15 +110,6 @@ hash pygmentize &> /dev/null && alias cat="pygmentize -g"
 
 REPORTTIME=10
 
-function agvim () {
-	CHOICE=$(ag --color $* | fzf -0 -1 --ansi)
-	if [ ! -z "$CHOICE" ]; then
-		# Open vim at the selected file and line, but also run the Ag scan
-		# the ! on Ag! stops Ag jumping to the first match, and the wincmd gives the editor window focus
-		nvim $( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "+%d %s\n", $2, $1 } ') +"Ag! '$*'" "+wincmd k"
-	fi
-}
-
 function try_ssh () {
 	SUCCESS=0
 	while [ $SUCCESS -eq 0 ]; do
