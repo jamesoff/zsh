@@ -1,0 +1,10 @@
+#compdef watch-elb
+
+local -a elbs
+if [[ ! -z "$AWS_REGION" ]]; then
+	elbs=( "${(@f)$( aws elb describe-load-balancers --region $AWS_REGION | jq -r '.LoadBalancerDescriptions[] | .LoadBalancerName')}" )
+else
+	elbs=( "${(@f)$( aws elb describe-load-balancers | jq -r '.LoadBalancerDescriptions[] | .LoadBalancerName')}" )
+fi
+
+_describe 'load balancers' elbs
