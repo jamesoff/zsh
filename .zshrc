@@ -131,7 +131,7 @@ function agvim () {
 function try_ssh () {
 	SUCCESS=0
 	while [ $SUCCESS -eq 0 ]; do
-		ssh -o "ConnectTimeout 30" $*
+		ssh -o "ConnectTimeout 30" -o "StrictHostKeyChecking no" $*
 		RESULT=$?
 		if [ $RESULT -ne 255 ]; then
 			SUCCESS=1
