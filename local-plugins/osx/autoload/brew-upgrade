@@ -1,0 +1,5 @@
+# vim: ft=zsh
+
+brew update
+brew outdated | fzf -m -n 1 --tac --header='Select formulae to upgrade with tab' | xargs brew upgrade
+

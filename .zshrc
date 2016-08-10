@@ -28,6 +28,7 @@ zplug "$ZSH_LOCAL_PLUGINS/spectrum", from:local
 zplug "$ZSH_LOCAL_PLUGINS/completion", from:local
 zplug "$ZSH_LOCAL_PLUGINS/utility", from:local, nice:5
 zplug "$ZSH_LOCAL_PLUGINS/git", from:local
+zplug "$ZSH_LOCAL_PLUGINS/osx", from:local, if:"[[ $OSTYPE == *darwin* ]]"
 zplug "mafredri/zsh-async"
 
 zplug "$ZSH_LOCAL_PLUGINS/aws", from:local
@@ -110,22 +111,11 @@ hash pygmentize &> /dev/null && alias cat="pygmentize -g"
 
 REPORTTIME=10
 
-function brew-upgrade () {
-	brew update
-	brew outdated | fzf -m -n 1 --tac --header='Select formulae to upgrade with tab' | xargs brew upgrade
-}
-
 for f in $FILES; do
 	if [ -f $f ]; then
 		source $f
 	fi
 done
-
-if [[ "$( uname )" == "Darwin" ]]; then
-	function fix-ssh-agent () {
-		listener=$( \find /private/tmp/com.apple.launchd.* -name Listeners -type s ) && export SSH_AUTH_SOCK="$listener"
-	}
-fi
 
 # override from emacs-forword-word for the autosuggest feature
 bindkey '^[f' forward-word
