@@ -135,17 +135,6 @@ function try_ssh () {
 	done
 }
 
-
-function vpn () {
-	if $( pgrep vpnc > /dev/null ); then
-		echo "--> Disconnecting VPN"
-		sudo /usr/local/sbin/vpnc-disconnect
-	else
-		echo "--> Connecting VPN"
-		sudo /usr/local/sbin/vpnc
-	fi
-}
-
 function brew-upgrade () {
 	brew update
 	brew outdated | fzf -m -n 1 --tac --header='Select formulae to upgrade with tab' | xargs brew upgrade
