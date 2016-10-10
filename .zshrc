@@ -18,6 +18,9 @@ autoload -Uz promptinit && promptinit
 
 ZSH_LOCAL_PLUGINS="~/.zsh/local-plugins"
 
+# self-manage
+zplug "zplug/zplug"
+
 # borrowed from prezto
 zplug "$ZSH_LOCAL_PLUGINS/environment", from:local, nice:-10
 zplug "$ZSH_LOCAL_PLUGINS/helper", from:local, nice:-9
