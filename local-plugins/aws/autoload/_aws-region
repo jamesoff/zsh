@@ -11,6 +11,7 @@ options=(
 	'eu-west-1:Ireland'
 	'sa-east-1:Sao Paulo'
 	'us-east-1:North Carolina'
+	'us-east-2:Ohio'
 	'us-west-1:Northern California'
 	'us-west-2:Oregon'
 )
