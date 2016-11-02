@@ -78,6 +78,12 @@ FILES=(
 	~/.nvim/bundle/neoman.vim/scripts/neovim.zsh
 	)
 
+# Dirs to alias, if they exist
+typeset -A ALIAS_DIRS
+ALIAS_DIRS=(
+	/Users/jseward61/src/chef_repo/cookbooks chef
+	)
+
 export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
 for d in $DIRS; do
 	if [ -d $d ]; then
@@ -87,6 +93,12 @@ done
 NEWPATH=$(echo $PATH | awk -F: '{for (i=1;i<=NF;i++) { if ( !x[$i]++ ) printf("%s:",$i); }}')
 PATH=${NEWPATH:0:-1}
 unset DIRS NEWPATH
+
+for d in "${(@k)ALIAS_DIRS}"; do
+	if [ -d "$d" ]; then
+		hash -d $ALIAS_DIRS[$d]=$d
+	fi
+done
 
 # Make clean tarballs on OS X without extended attrs
 export COPYFILE_DISABLE=true
