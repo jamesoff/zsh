@@ -123,3 +123,8 @@ done
 # override from emacs-forword-word for the autosuggest feature
 bindkey '^[f' forward-word
 
+function fzf-cd-history() {
+	cd ~$( d | fzf | awk '{print $1}' )
+}
+zle -N fzf-cd-history
+bindkey '^[d' fzf-cd-history
