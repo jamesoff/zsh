@@ -136,7 +136,10 @@ done
 bindkey '^[f' forward-word
 
 function fzf-cd-history() {
-	cd ~$( d | fzf | awk '{print $1}' )
+	dir=$( d | fzf --header="Recent directories" --inline-info | awk '{print $1}' )
+	if [[ ! -z $dir ]]; then
+		cd ~$dir
+	fi
 }
 zle -N fzf-cd-history
 bindkey '^[d' fzf-cd-history
