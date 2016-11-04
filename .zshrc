@@ -118,6 +118,10 @@ if [ -x /usr/local/bin/gcc ]; then
 	export CXX=/usr/local/bin/gcc
 fi
 
+if [ -d /Users/jseward61 ]; then
+	export KRB5CCNAME=/tmp/jseward61_krb5cache
+	alias kinit="kinit -c $KRB5CCNAME jseward@AOL.COM"
+fi
 
 alias flake8="flake8 --ignore=E501"
 alias md5sum=md5

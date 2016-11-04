@@ -72,7 +72,7 @@ function prompt_sorin_git_info {
 }
 
 function prompt_sorin_precmd_async {
-  if klist -t 2> /dev/null; then
+  if klist -t -c "$KRB5CCNAME" 2> /dev/null; then
       _prompt_sorin_krb_status=' 🔒  '
   else
       _prompt_sorin_krb_status=''
