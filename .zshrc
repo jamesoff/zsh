@@ -99,6 +99,7 @@ for d in "${(@k)ALIAS_DIRS}"; do
 		hash -d $ALIAS_DIRS[$d]=$d
 	fi
 done
+unset d ALIAS_DIRS
 
 # Make clean tarballs on OS X without extended attrs
 export COPYFILE_DISABLE=true
@@ -135,6 +136,7 @@ for f in $FILES; do
 		source $f
 	fi
 done
+unset f FILES
 
 # override from emacs-forword-word for the autosuggest feature
 bindkey '^[f' forward-word
