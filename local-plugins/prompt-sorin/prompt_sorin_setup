@@ -97,7 +97,7 @@ function prompt_sorin_precmd {
   prompt_sorin_pwd
 
   # Define prompts.
-  RPROMPT='${AWS_PROFILE:+"%F{3}$AWS_PROFILE%f"}${AWS_DEFAULT_REGION:+" %F{6}$AWS_DEFAULT_REGION%f%b"}${_prompt_sorin_krb_status}${editor_info[overwrite]}%(?:: %F{1}⏎%f)${VIM:+" %B%F{6}V%f%b"}'
+  RPROMPT='%(?:: %F{1} %f)${AWS_PROFILE:+"%F{3} $AWS_PROFILE%f"}${AWS_DEFAULT_REGION:+" %F{6}$AWS_DEFAULT_REGION%f%b"}${_prompt_sorin_krb_status}${editor_info[overwrite]}${VIM:+" %B%F{6}V%f%b"}'
 
   # Kill the old process of slow commands if it is still running.
   if (( _prompt_sorin_precmd_async_pid > 0 )); then
@@ -135,7 +135,7 @@ function prompt_sorin_setup {
   zstyle ':prezto:module:git:info:added' format ' %%B%F{2}✚%f%%b'
   zstyle ':prezto:module:git:info:ahead' format ' %%B%F{13}⬆%f%%b'
   zstyle ':prezto:module:git:info:behind' format ' %%B%F{13}⬇%f%%b'
-  zstyle ':prezto:module:git:info:branch' format ' %%B%F{2}%b%f%%b'
+  zstyle ':prezto:module:git:info:branch' format ' %%B%F{2}%b%f%%b'
   zstyle ':prezto:module:git:info:commit' format ' %%B%F{3}%.7c%f%%b'
   zstyle ':prezto:module:git:info:deleted' format ' %%B%F{1}✖%f%%b'
   zstyle ':prezto:module:git:info:modified' format ' %%B%F{4}✱%f%%b'
