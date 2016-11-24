@@ -149,3 +149,22 @@ function fzf-cd-history() {
 }
 zle -N fzf-cd-history
 bindkey '^[d' fzf-cd-history
+
+has-docker() {
+	hash docker &> /dev/null && return 0
+	return 1
+}
+
+has-docker && run-docker () {
+	docker run -i -t --rm $1 /bin/bash
+}
+
+has-docker && tidy-docker() {
+	echo "--> Removing exited containers..."
+	docker ps -a | awk ' /Exited/ {print $1}' | xargs -n1 docker rm
+	echo
+	echo "--> Removing untagged images..."
+	docker images | awk ' /<none>/ { print $3 }' | xargs -n1 docker rmi
+}
+
+unfunction has-docker
