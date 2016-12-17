@@ -19,17 +19,17 @@ autoload -Uz promptinit && promptinit
 ZSH_LOCAL_PLUGINS="~/.zsh/local-plugins"
 
 # self-manage
-zplug "zplug/zplug"
+#zplug "zplug/zplug"
 
 # borrowed from prezto
-zplug "$ZSH_LOCAL_PLUGINS/environment", from:local, nice:-10
-zplug "$ZSH_LOCAL_PLUGINS/helper", from:local, nice:-9
+zplug "$ZSH_LOCAL_PLUGINS/environment", from:local
+zplug "$ZSH_LOCAL_PLUGINS/helper", from:local
 zplug "$ZSH_LOCAL_PLUGINS/editor", from:local
 zplug "$ZSH_LOCAL_PLUGINS/history", from:local
 zplug "$ZSH_LOCAL_PLUGINS/directory", from:local
 zplug "$ZSH_LOCAL_PLUGINS/spectrum", from:local
 zplug "$ZSH_LOCAL_PLUGINS/completion", from:local
-zplug "$ZSH_LOCAL_PLUGINS/utility", from:local, nice:5
+zplug "$ZSH_LOCAL_PLUGINS/utility", from:local
 zplug "$ZSH_LOCAL_PLUGINS/git", from:local
 zplug "$ZSH_LOCAL_PLUGINS/osx", from:local, if:"[[ $OSTYPE == *darwin* ]]"
 zplug "mafredri/zsh-async"
@@ -39,7 +39,7 @@ zplug "supercrabtree/k", use:"*.sh", hook-build:"chmod 755 k.sh"
 zplug "rupa/z", use:"z.sh"
 
 zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting", nice:10
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 if [[ $ZPLUG_INSTALL_NEEDED == 1 ]]; then
 	zplug install
