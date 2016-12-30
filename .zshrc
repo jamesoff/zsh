@@ -9,7 +9,7 @@ else
 	ZPLUG_INSTALL_NEEDED=0
 fi
 
-zstyle ':prezto:module:editor' key-bindings 'emacs'
+zstyle ':prezto:module:editor' key-bindings 'vi'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 # Prepare prompt theme
@@ -59,6 +59,7 @@ unsetopt AUTO_CD
 setopt TRANSIENT_RPROMPT
 prompt sorin
 zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{2}%%%f%b'
+zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{1}$%f%b'
 
 # Thing to add to PATH, if they exist
 DIRS=(
@@ -168,3 +169,8 @@ has-docker && tidy-docker() {
 }
 
 unfunction has-docker
+
+if [[ ! -z $TMUX ]]; then
+	tmux rename-window 
+fi
+
