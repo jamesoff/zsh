@@ -170,6 +170,11 @@ has-docker && tidy-docker() {
 
 unfunction has-docker
 
+# use path of $HOME as proxy for detecting OS X without running uname
+if [[ $HOME =~ Users ]]; then
+	alias tidy-finder="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user"
+fi
+
 if [[ ! -z $TMUX ]]; then
 	tmux rename-window 
 fi
