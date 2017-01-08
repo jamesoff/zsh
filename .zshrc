@@ -105,8 +105,6 @@ unset d ALIAS_DIRS
 # Make clean tarballs on OS X without extended attrs
 export COPYFILE_DISABLE=true
 
-export EDITOR=nvim
-export VISUAL=nvim
 export CLICOLOR=true
 
 export FZF_DEFAULT_OPTS='-e'
@@ -125,9 +123,17 @@ if [ -d /Users/jseward61 ]; then
 	alias kinit="kinit -c $KRB5CCNAME jseward@AOL.COM"
 fi
 
-alias flake8="flake8 --ignore=E501"
+has flake8 && alias flake8="flake8 --ignore=E501"
 alias md5sum=md5
-hash nvim &> /dev/null && alias vim=nvim
+if has nvim; then
+	alias vim=nvim
+	export EDITOR=nvim
+	export VISUAL=nvim
+else
+	export EDITOR=vim
+	export VISUAL=vim
+fi
+
 hash pygmentize &> /dev/null && alias cat="pygmentize -g"
 
 REPORTTIME=10
@@ -151,24 +157,17 @@ function fzf-cd-history() {
 zle -N fzf-cd-history
 bindkey '^[d' fzf-cd-history
 
-has-docker() {
-	hash docker &> /dev/null && return 0
-	return 1
-}
-
-has-docker && run-docker () {
+has docker && run-docker () {
 	docker run -i -t --rm $1 /bin/bash
 }
 
-has-docker && tidy-docker() {
+has docker && tidy-docker() {
 	echo "--> Removing exited containers..."
 	docker ps -a | awk ' /Exited/ {print $1}' | xargs -n1 docker rm
 	echo
 	echo "--> Removing untagged images..."
 	docker images | awk ' /<none>/ { print $3 }' | xargs -n1 docker rmi
 }
-
-unfunction has-docker
 
 # use path of $HOME as proxy for detecting OS X without running uname
 if [[ $HOME =~ Users ]]; then

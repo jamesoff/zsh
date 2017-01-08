@@ -1,6 +1,6 @@
 fpath=( ~/.zsh/local-plugins/utility/autoload $fpath )
 
-autoload agvim try-ssh
+autoload agvim try-ssh has
 
 #
 # Defines general aliases and functions.
