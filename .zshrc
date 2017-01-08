@@ -76,7 +76,6 @@ FILES=(
 	/Users/james/.travis/travis.sh
 	~/.iterm2_shell_integration.zsh
 	~/.fzf.zsh
-	~/.nvim/bundle/neoman.vim/scripts/neovim.zsh
 	)
 
 # Dirs to alias, if they exist
@@ -125,16 +124,18 @@ fi
 
 has flake8 && alias flake8="flake8 --ignore=E501"
 alias md5sum=md5
+
 if has nvim; then
 	alias vim=nvim
 	export EDITOR=nvim
 	export VISUAL=nvim
+	export MANPAGER="nvim -c 'set ft=man' -"
 else
 	export EDITOR=vim
 	export VISUAL=vim
 fi
 
-hash pygmentize &> /dev/null && alias cat="pygmentize -g"
+has pygmentize && alias cat="pygmentize -g"
 
 REPORTTIME=10
 
