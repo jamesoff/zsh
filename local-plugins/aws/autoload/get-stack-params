@@ -1,0 +1,8 @@
+# vim: ft=zsh
+
+if [[ $# -ne 1 ]]; then
+	echo "usage: $0 stack-name"
+	return 1
+fi
+
+aws cloudformation describe-stacks --stack-name "$1" | jq '.Stacks[0].Parameters'

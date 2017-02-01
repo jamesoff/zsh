@@ -9,3 +9,4 @@ function aws-profile() {
 }
 
 autoload watch-elb
+autoload get-stack-params
