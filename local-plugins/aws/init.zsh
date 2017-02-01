@@ -4,9 +4,6 @@ function aws-region() {
 	export AWS_DEFAULT_REGION=$1
 }
 
-function aws-profile() {
-	export AWS_PROFILE=$1
-}
-
+autoload aws-profile
 autoload watch-elb
 autoload get-stack-params

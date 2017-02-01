@@ -1,8 +1,6 @@
-#compdef aws-profile
+# vim: ft=zsh
 
-local -a options
-#options=( "${(@f)$( sed -e '/^\[/p' -n ~/.aws/credentials | tr -d '[]' | sort )}" )
-typeset -A profiles
+declare -A profiles
 profiles[aol-advertising]="926316505624 AOL-SSO-OE"
 profiles[AOLP-DataServices-Prod]="394273476801 AOL-SSO-OE"
 profiles[aolp-ext]="525960771053 AOL-SSO-OE"
@@ -13,5 +11,23 @@ profiles[aolp-prd]="037178170865 AOL-SSO-OE"
 profiles[AOLP-PROD-RTB]="391084588858 AOL-SSO-OE"
 profiles[aolp-prod-mm]="780580166570 AOL-SSO-OE"
 profiles[AOLP-DEV-RTB]="877078222452 AOL-SSO-OE"
-options=("${(@k)profiles}")
-_describe 'profiles' options
+
+profile=$1
+
+if [[ -z $profile ]]; then
+	echo "usage: $0 <profile>"
+	echo "       known profiles: ${(k)profiles}"
+	return 1
+fi
+
+profile_info=("${(@s/ /)profiles[$profile]}")
+
+if awsfed --role="$profile_info[2]" --account="$profile_info[1]" --profile="$profile-fed"; then
+	export AWS_PROFILE="$profile-fed"
+	if [[ -z $AWS_DEFAULT_REGION ]]; then
+		echo "Setting default region."
+		export AWS_DEFAULT_REGION=us-east-1
+	fi
+else
+	echo "Failed to federate profile."
+fi
