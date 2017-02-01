@@ -9,7 +9,7 @@ else
 	ZPLUG_INSTALL_NEEDED=0
 fi
 
-zstyle ':prezto:module:editor' key-bindings 'vi'
+zstyle ':prezto:module:editor' key-bindings 'emacs'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 # Prepare prompt theme
