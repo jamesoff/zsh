@@ -135,8 +135,6 @@ else
 	export VISUAL=vim
 fi
 
-has pygmentize && alias cat="pygmentize -g"
-
 REPORTTIME=10
 
 for f in $FILES; do
