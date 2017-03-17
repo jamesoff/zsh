@@ -24,7 +24,7 @@ target_profile="$1-fed"
 profile_info=("${(@s/ /)profiles[$profile]}")
 
 if [[ -z $profile_info ]]; then
-	echo "unknown profile name"
+	echo " unknown profile name"
 	return 1
 fi
 
@@ -35,29 +35,29 @@ if grep -q -F $target_profile ~/.aws/credentials; then
 	now_ts=$( date +%s )
 	diff=$(( expiry_ts - now_ts ))
 	if [[ $diff > 300 ]]; then
-		echo "Current credentials have $diff seconds remaining, reusing."
+		echo " Current credentials have $diff seconds remaining, reusing."
 		export AWS_PROFILE="$profile-fed"
 		if [[ -z $AWS_DEFAULT_REGION ]]; then
-			echo "Setting default region."
+			echo " Setting default region."
 			export AWS_DEFAULT_REGION=us-east-1
 		fi
 		return 0
 	else
 		if [[ $diff > 0 ]]; then
-			echo "Current credentials have less than 5 minutes remaining, re-requesting."
+			echo " Current credentials have less than 5 minutes remaining, re-requesting."
 		fi
 	fi
 fi
 
-echo "Fetching credentials via awsfed..."
+echo " Fetching credentials via awsfed..."
 if awsfed --role="$profile_info[2]" --account="$profile_info[1]" --profile="$profile-fed"; then
 	export AWS_PROFILE="$profile-fed"
 	if [[ -z $AWS_DEFAULT_REGION ]]; then
-		echo "Setting default region."
+		echo " Setting default region."
 		export AWS_DEFAULT_REGION=us-east-1
 	fi
 	return 0
 else
-	echo "Failed to federate profile."
+	echo " Failed to federate profile."
 	return 1
 fi
