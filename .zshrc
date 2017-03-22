@@ -33,6 +33,8 @@ zplug "$ZSH_LOCAL_PLUGINS/utility", from:local
 zplug "$ZSH_LOCAL_PLUGINS/git", from:local
 zplug "$ZSH_LOCAL_PLUGINS/osx", from:local, if:"[[ $OSTYPE == *darwin* ]]"
 zplug "mafredri/zsh-async"
+zplug "jreese/zsh-titles"
+zplug "b4b4r07/enhancd", use:init.sh
 
 zplug "$ZSH_LOCAL_PLUGINS/aws", from:local
 zplug "supercrabtree/k", use:"*.sh", hook-build:"chmod 755 k.sh"
@@ -176,6 +178,8 @@ has docker && tidy-docker() {
 	echo "--> Removing untagged images..."
 	docker images | awk ' /<none>/ { print $3 }' | xargs -n1 docker rmi
 }
+
+has fzf && alias gita='git add $( git ls-files -m -o --exclude-standard | fzf -m --preview="git diff --color {}" --ansi )'
 
 # use path of $HOME as proxy for detecting OS X without running uname
 if [[ $HOME =~ Users ]]; then
