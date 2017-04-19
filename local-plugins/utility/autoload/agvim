@@ -1,7 +1,14 @@
 # vim: ft=zsh
 
+
+if hash "rg" &> /dev/null; then
+	AGCMD=rg
+else
+	AGCMD=ag
+fi
+
 QFTMPFILE=$( mktemp )
-CHOICE=$(ag --vimgrep $* | tee -i "$QFTMPFILE" | fzf -0 -1)
+CHOICE=$($AGCMD --smart-case --vimgrep $* | tee -i "$QFTMPFILE" | fzf -0 -1)
 if [ ! -z "$CHOICE" ]; then
 	# Open vim at the selected file and line, but also run the Ag scan
 	# the ! on Ag! stops Ag jumping to the first match, and the wincmd gives the editor window focus
