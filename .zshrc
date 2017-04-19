@@ -108,8 +108,12 @@ export COPYFILE_DISABLE=true
 
 export CLICOLOR=true
 
-export FZF_DEFAULT_OPTS='-e'
+export FZF_DEFAULT_OPTS='-e --height=15 --reverse'
 export FZF_TMUX=0
+
+# get rid of fzf-tmux
+export ENHANCD_FILTER=fzf
+export ENHANCD_COMMAND=ecd
 
 [ -d ~/.config ] && export XDG_CONFIG_HOME=~/.config
 
