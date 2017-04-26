@@ -9,6 +9,8 @@ else
 	ZPLUG_INSTALL_NEEDED=0
 fi
 
+export LANG=en_GB.UTF-8
+
 zstyle ':prezto:module:editor' key-bindings 'emacs'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
