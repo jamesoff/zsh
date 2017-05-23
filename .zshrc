@@ -128,7 +128,8 @@ fi
 
 if [ -d /Users/jseward61 ]; then
 	export KRB5CCNAME=/tmp/jseward61_krb5cache
-	alias kinit="kinit -c $KRB5CCNAME jseward@AOL.COM"
+	export KERB_ID=jseward
+	alias kinit="kinit -c $KRB5CCNAME $KERB_ID@AOL.COM"
 fi
 
 has flake8 && alias flake8="flake8 --ignore=E501"
