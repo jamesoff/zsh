@@ -40,10 +40,11 @@ zplug "b4b4r07/enhancd", use:init.sh
 
 zplug "$ZSH_LOCAL_PLUGINS/aws", from:local
 zplug "supercrabtree/k", use:"*.sh", hook-build:"chmod 755 k.sh"
-zplug "rupa/z", use:"z.sh"
+#zplug "rupa/z", use:"z.sh"
 
 zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+#zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zdharma/fast-syntax-highlighting", defer:2
 
 if [[ $ZPLUG_INSTALL_NEEDED == 1 ]]; then
 	zplug install
