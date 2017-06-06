@@ -42,6 +42,31 @@ export HOSTCOLOUR=$(string_hash $HOSTNAME:l 7)
 #PROMPT='%{$reset_color%}%n%{$fg[white]%}@%{%F{$HOSTCOLOUR}%}$HOSTNAME$SCR_WINDOW$SCR_COLOR:%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info)$(svn_prompt_info) %(0?,,%{$fg[red]%}%?!%{$reset_color%} )%(!.%{$fg[red]%}.%{$fg[green]%})%($(prompt_space)l.
 #.)%#%{$reset_color%} '
 
+function prompt_jms_pwd {
+  local pwd="${PWD/#$HOME/~}"
+
+  if [[ "$pwd" == (#m)[/~] ]]; then
+    _prompt_sorin_pwd="$MATCH"
+    unset MATCH
+  else
+    #_prompt_sorin_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
+	prompt_bits=(${(@s:/:)pwd})
+	colour_code=$(( 255 - ( 2 * ${#prompt_bits} ) ))
+	if [[ $colour_code < 240 ]]; then
+		colour_code=240
+	fi
+	declare prompt_string
+	for d in $prompt_bits; do
+		prompt_string="${prompt_string}%{$FG[$colour_code]%}$d/"
+		(( colour_code += 2 ))
+		if [[ $colour_code > 255 ]]; then
+			colour_code=255
+		fi
+	done
+	_prompt_sorin_pwd=$( print -P -n "${prompt_string%/}" )
+  fi
+}
+
 function prompt_sorin_pwd {
   local pwd="${PWD/#$HOME/~}"
 
@@ -94,7 +119,8 @@ function prompt_sorin_precmd {
   unsetopt XTRACE KSH_ARRAYS
 
   # Format PWD.
-  prompt_sorin_pwd
+  #prompt_sorin_pwd
+  prompt_jms_pwd
 
   # Define prompts.
   RPROMPT='%(?:: %F{1} %f)${_prompt_sorin_krb_status}${AWS_PROFILE:+"%F{3} $AWS_PROFILE%f"}${AWS_DEFAULT_REGION:+" %F{6}$AWS_DEFAULT_REGION%f%b"}${editor_info[overwrite]}'
