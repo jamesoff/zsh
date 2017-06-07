@@ -45,8 +45,9 @@ export HOSTCOLOUR=$(string_hash $HOSTNAME:l 7)
 function prompt_jms_pwd {
   local pwd="${PWD/#$HOME/~}"
 
+  # Match / or ~ alone
   if [[ "$pwd" == (#m)[/~] ]]; then
-    _prompt_sorin_pwd="$MATCH"
+    _prompt_sorin_pwd="%F{254}$MATCH"
     unset MATCH
   else
     #_prompt_sorin_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
@@ -55,15 +56,21 @@ function prompt_jms_pwd {
 	if [[ $colour_code < 240 ]]; then
 		colour_code=240
 	fi
-	declare prompt_string
+	declare prompt_string=""
+	if [[ "$pwd" == /* ]]; then
+		prompt_string="%F{$colour_code}/"
+	fi
 	for d in $prompt_bits; do
-		prompt_string="${prompt_string}%{$FG[$colour_code]%}$d/"
+		prompt_string="${prompt_string}%F{$colour_code}$d/"
 		(( colour_code += 2 ))
 		if [[ $colour_code > 255 ]]; then
 			colour_code=255
 		fi
 	done
-	_prompt_sorin_pwd=$( print -P -n "${prompt_string%/}" )
+
+
+	# Remove trailing /
+	_prompt_sorin_pwd="${prompt_string%/}"
   fi
 }
 
