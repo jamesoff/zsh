@@ -1,3 +1,7 @@
+# get rid of fzf-tmux
+export ENHANCD_FILTER=fzf
+export ENHANCD_COMMAND=ecd
+
 if [ ! -d ~/.zplug ]; then
 	echo Installing zplug...
 	git clone git@github.com:zplug/zplug.git .zplug
@@ -113,10 +117,6 @@ export CLICOLOR=true
 
 export FZF_DEFAULT_OPTS='-e --height=15 --reverse'
 export FZF_TMUX=0
-
-# get rid of fzf-tmux
-export ENHANCD_FILTER=fzf
-export ENHANCD_COMMAND=ecd
 
 [ -d ~/.config ] && export XDG_CONFIG_HOME=~/.config
 
