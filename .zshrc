@@ -85,6 +85,7 @@ FILES=(
 	/Users/james/.travis/travis.sh
 	~/.iterm2_shell_integration.zsh
 	~/.fzf.zsh
+	~/.config/homebrew-token
 	)
 
 # Dirs to alias, if they exist
