@@ -30,8 +30,9 @@ fi
 
 if grep -q -F $target_profile ~/.aws/credentials; then
 	expiry=$( aws configure get expiration --profile "$target_profile" )
+	expiry=${expiry%[+-][0-9][0-9]:[0-9]0}
 	# 2017-02-28 15:28:59+00:00
-	expiry_ts=$( date -j -f "%F %T+00:00" +%s "$expiry" )
+	expiry_ts=$( date -j -f "%F %T" +%s "$expiry" )
 	now_ts=$( date +%s )
 	diff=$(( expiry_ts - now_ts ))
 	if [[ $diff > 300 ]]; then
