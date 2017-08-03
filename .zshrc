@@ -4,7 +4,7 @@ export ENHANCD_COMMAND=ecd
 
 if [ ! -d ~/.zplug ]; then
 	echo Installing zplug...
-	git clone git@github.com:zplug/zplug.git://github.com/zplug/zplug.git .zplug
+	git clone https://github.com/zplug/zplug.git .zplug
 	source ~/.zplug/init.zsh
 	echo Installing plugins...
 	ZPLUG_INSTALL_NEEDED=1
