@@ -25,20 +25,6 @@ case "$state" in
   (args)
     case $line[1] in
       (ssh)
-		local -a options
-		options=(
-			'-h:display help'
-			'-a:AWS account id'
-			'-r:AWS region'
-			'-J:jumphost'
-			'-k:use remote keypair'
-			'-l:use local keypair'
-			'-L:use remote keypair and save locally'
-			'-v:increase output verbosity'
-		)
-		local -a arguments
-		arguments=('t:target user and hostname')
-		#_describe 'options' options -- 'target' arguments
 		_arguments \
 			'*-v[increase output verbosity]' \
 			'-a[AWS account id]: ' \
@@ -59,6 +45,36 @@ case "$state" in
 				typeset -a users
 				users=('ec2-user:' 'root:')
 				_describe 'userhost' users -S '@'
+				;;
+		esac
+		;;
+	(ping)
+		_arguments \
+			'-h[display help]' \
+			'-v[increase output verbosity]' \
+			'-J[jumphost]: '
+		;;
+	(scp)
+		_arguments \
+			'*-v[increase output verbosity]' \
+			'-a[AWS account id]: ' \
+			'-r[AWS region]: ' \
+			'-J[jumphost]: ' \
+			'(-l -L)-k[use remote keypair]: ' \
+			'(-k -L)-l[use local keypair]:keypair:->keypairs' \
+			'(-k -l)-L[use remote keypair and save locally]: ' \
+			'(-):source user and hostname and file:->userhostfile' \
+			'(-):destination user and hostname and file:->userhostfile'
+		case $state in
+			(keypairs)
+				local -a keypairs
+				keypairs=($( ls ~/.ssh/**/*.pem ))
+				_values 'keypair' ${keypairs[@]:t:r}
+				;;
+			(userhostfile)
+				typeset -a users
+				users=('ec2-user:' 'root:')
+				_describe 'user@host:file' users -S '@'
 				;;
 		esac
 		;;
