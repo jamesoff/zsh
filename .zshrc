@@ -194,3 +194,14 @@ has fzf && alias gita='git add $( git ls-files -m -o --exclude-standard | fzf -m
 if [[ $HOME =~ Users ]]; then
 	alias tidy-finder="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user"
 fi
+
+# show available tmux sessions
+if has tmux; then
+	if [[ -z $TMUX ]]; then
+		sessions=$( tmux ls 2> /dev/null | awk '! /attached/ { sub(":", "", $1); print $1; }' | xargs echo )
+		if [[ ! -z $sessions ]]; then
+			echo "==> Available tmux sessions: $sessions"
+		fi
+		unset sessions
+	fi
+fi
