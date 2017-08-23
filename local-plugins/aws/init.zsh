@@ -7,3 +7,6 @@ function aws-region() {
 autoload aws-profile
 autoload watch-elb
 autoload get-stack-params
+autoload get-instances-dns
+autoload get-instances-id
+autoload get-instances

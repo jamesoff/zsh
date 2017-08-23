@@ -1,0 +1,5 @@
+# vim: ft=zsh
+
+instance_name=${1?Missing instance name filter}
+
+get-instances "$instance_name" | jq -r '.Reservations[].Instances[].PrivateDnsName'
