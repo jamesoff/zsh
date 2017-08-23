@@ -43,7 +43,8 @@ export HOSTCOLOUR=$(string_hash $HOSTNAME:l 7)
 #.)%#%{$reset_color%} '
 
 function prompt_jms_pwd {
-  local pwd="${PWD/#$HOME/~}"
+  #local pwd="${PWD/#$HOME/~}"
+  local pwd=$( print -P %~ )
 
   # Match / or ~ alone
   if [[ "$pwd" == (#m)[/~] ]]; then
