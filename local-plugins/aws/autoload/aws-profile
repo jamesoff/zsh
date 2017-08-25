@@ -12,15 +12,26 @@ profiles[AOLP-PROD-RTB]="391084588858 AOL-SSO-OE"
 profiles[aolp-prod-mm]="780580166570 AOL-SSO-OE"
 profiles[AOLP-DEV-RTB]="877078222452 AOL-SSO-OE"
 
-profile=$1
+local profile=$1
+local fixed=0
 
 if [[ -z $profile ]]; then
-	echo "usage: $0 <profile>"
-	echo "       known profiles: ${(k)profiles}"
-	return 1
+	if [[ ! -z $AWS_PROFILE ]]; then
+		if [[ $AWS_PROFILE =~ "-fed$" ]]; then
+			echo "Renewing current profile"
+			profile=${AWS_PROFILE%"-fed"}
+			fixed=1
+		fi
+	fi
+
+	if [[ $fixed == 0 ]]; then
+		echo "usage: $0 <profile>"
+		echo "       known profiles: ${(k)profiles}"
+		return 1
+	fi
 fi
 
-target_profile="$1-fed"
+target_profile="$profile-fed"
 profile_info=("${(@s/ /)profiles[$profile]}")
 
 if [[ -z $profile_info ]]; then
@@ -28,7 +39,7 @@ if [[ -z $profile_info ]]; then
 	return 1
 fi
 
-if grep -q -F $target_profile ~/.aws/credentials; then
+if grep -q -F -- "$target_profile" ~/.aws/credentials; then
 	expiry=$( aws configure get expiration --profile "$target_profile" )
 	expiry=${expiry%[+-][0-9][0-9]:[0-9]0}
 	# 2017-02-28 15:28:59+00:00
