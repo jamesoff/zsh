@@ -190,6 +190,13 @@ has docker && tidy-docker() {
 
 has fzf && alias gita='git add $( git ls-files -m -o --exclude-standard | fzf -m --preview="git diff --color {}" --ansi )'
 
+if has exa; then
+	alias lg='exa -l --git'
+else
+	lg-missing() { echo 'exa is not installed :(' }
+	alias lg=lg-missing
+fi
+
 # use path of $HOME as proxy for detecting OS X without running uname
 if [[ $HOME =~ Users ]]; then
 	alias tidy-finder="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user"
