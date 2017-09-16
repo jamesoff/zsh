@@ -78,6 +78,38 @@ case "$state" in
 				;;
 		esac
 		;;
+	(audit)
+		_arguments \
+			'-p[AWS profile]: ' \
+			'-r[AWS region]: ' \
+			'-v[enable verbose output]'
+		;;
+	(rotate)
+		_arguments \
+			'-p[AWS profile]: ' \
+			'-a[AWS account id]: ' \
+			'-r[AWS region]: ' \
+			'-J[jumphost]: ' \
+			'-k[AWS keypair name]: ' \
+			'*-v[increase output verbosity]'
+		;;
+	(write_key)
+		_arguments \
+			'*-v[increase output verbosity]' \
+			'-p[AWS profile]: ' \
+			'-a[AWS account id]: ' \
+			'-r[AWS region]: ' \
+			'-J[jumphost]: ' \
+			'-k[AWS keypair name]: ' \
+			'-f[existing keypair name]:keypair:->keypairs'
+		case $state in
+			(keypairs)
+				local -a keypairs
+				keypairs=($( ls ~/.ssh/**/*.pem ))
+				_values 'keypair' ${keypairs[@]:t:r}
+				;;
+		esac
+		;;
     esac
     ;;
 esac
