@@ -1,6 +1,7 @@
 fpath=( ~/.zsh/local-plugins/utility/autoload $fpath )
 
-autoload agvim try-ssh has
+autoload agvim try-ssh has git-commit-edit
+zle -N git-commit-edit
 
 #
 # Defines general aliases and functions.

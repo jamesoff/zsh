@@ -189,6 +189,7 @@ has docker && tidy-docker() {
 }
 
 has fzf && autoload gita
+bindkey -e "^XG" git-commit-edit
 
 if has exa; then
 	alias lg='exa -l --git'

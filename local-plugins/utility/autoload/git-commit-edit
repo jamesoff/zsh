@@ -1,0 +1,12 @@
+# vim: ft=zsh
+
+if [[ $BUFFER =~ "^git commit (--message|-m)" ]]; then
+	local temp_file=$( mktemp /tmp/gitcommit.XXXXX )
+	echo "$BUFFER" >! $temp_file
+	nvim $temp_file -c "%s/\\vgit commit (-m |--message[= ])['\"]//" -c "%s/\v['\"]$//"
+	local new_message=$(< $file_file )
+	if [[ $new_message != $BUFFER ]]; then
+		BUFFER="git commit -m '$(< $temp_file )'"
+	fi
+	rm -f "$temp_file"
+fi
