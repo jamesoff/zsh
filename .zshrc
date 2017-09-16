@@ -188,7 +188,10 @@ has docker && tidy-docker() {
 	docker images | awk ' /<none>/ { print $3 }' | xargs -n1 docker rmi
 }
 
-has fzf && alias gita='git add $( git ls-files -m -o --exclude-standard | fzf -m --preview="git diff --color {}" --ansi )'
+has fzf && gita() {
+  git add $( git ls-files -m -o --exclude-standard | fzf -m --preview="git diff --color {}" --ansi )
+  git st
+}
 
 if has exa; then
 	alias lg='exa -l --git'
