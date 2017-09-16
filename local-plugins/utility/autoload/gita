@@ -1,0 +1,17 @@
+# vim: ft=zsh
+
+# TODO: check we're in a repo local files
+files=( $( git ls-files -m -o --exclude-standard | fzf \
+	--multi \
+	--preview="git diff --color {}" \
+	--preview-window=down:75% \
+	--height 100% \
+	--bind "ctrl-u:preview-up,ctrl-d:preview-down" \
+	--ansi
+) )
+if [[ ! -z $files ]]; then
+	git add $files
+	git st
+else
+	echo "No files were selected."
+fi
