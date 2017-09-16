@@ -2,6 +2,7 @@
 
 local curcontext="$curcontext" state line
 typeset -A opt_args
+typeset -a common_remote_keys=( ops_ads noc_ads )
 
 _arguments -C \
   ':cmd:->cmds' \
@@ -30,9 +31,9 @@ case "$state" in
 			'-a[AWS account id]: ' \
 			'-r[AWS region]: ' \
 			'-J[jumphost]: ' \
-			'(-l -L)-k[use remote keypair]: ' \
+			'(-l -L)-k[use remote keypair]:remote keypair:->remotekeypairs' \
 			'(-k -L)-l[use local keypair]:keypair:->keypairs' \
-			'(-k -l)-L[use remote keypair and save locally]: ' \
+			'(-k -l)-L[use remote keypair and save locally]:remote keypair:->remotekeypairs' \
 			'(-):user and hostname:->userhost' \
 			':remote command:'
 		case $state in
@@ -45,6 +46,9 @@ case "$state" in
 				typeset -a users
 				users=('ec2-user:' 'root:')
 				_describe 'userhost' users -S '@'
+				;;
+			(remotekeypairs)
+				_describe 'common remote keypairs' common_remote_keys
 				;;
 		esac
 		;;
@@ -60,9 +64,9 @@ case "$state" in
 			'-a[AWS account id]: ' \
 			'-r[AWS region]: ' \
 			'-J[jumphost]: ' \
-			'(-l -L)-k[use remote keypair]: ' \
+			'(-l -L)-k[use remote keypair]:remote keypair:->remotekeypairs' \
 			'(-k -L)-l[use local keypair]:keypair:->keypairs' \
-			'(-k -l)-L[use remote keypair and save locally]: ' \
+			'(-k -l)-L[use remote keypair and save locally]:remote keypair:->remotekeypairs' \
 			'(-):source user and hostname and file:->userhostfile' \
 			'(-):destination user and hostname and file:->userhostfile'
 		case $state in
@@ -75,6 +79,9 @@ case "$state" in
 				typeset -a users
 				users=('ec2-user:' 'root:')
 				_describe 'user@host:file' users -S '@'
+				;;
+			(remotekeypairs)
+				_describe 'common remote keypairs' common_remote_keys
 				;;
 		esac
 		;;
