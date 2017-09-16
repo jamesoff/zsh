@@ -38,6 +38,7 @@ function prompt_space() {
 HOSTNAME=$(hostname -s)
 export HOSTCOLOUR=$(string_hash $HOSTNAME:l 7)
 
+padlock_character=""
 # Line break in here is on purpose
 #PROMPT='%{$reset_color%}%n%{$fg[white]%}@%{%F{$HOSTCOLOUR}%}$HOSTNAME$SCR_WINDOW$SCR_COLOR:%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info)$(svn_prompt_info) %(0?,,%{$fg[red]%}%?!%{$reset_color%} )%(!.%{$fg[red]%}.%{$fg[green]%})%($(prompt_space)l.
 #.)%#%{$reset_color%} '
@@ -106,7 +107,7 @@ function prompt_sorin_git_info {
 
 function prompt_sorin_precmd_async {
   if klist -t -c "$KRB5CCNAME" 2> /dev/null; then
-      _prompt_sorin_krb_status='  '
+      _prompt_sorin_krb_status=" ${padlock_character} "
   else
       _prompt_sorin_krb_status=''
   fi
@@ -166,18 +167,18 @@ function prompt_sorin_setup {
   # Set git-info parameters.
   zstyle ':prezto:module:git:info' verbose 'yes'
   zstyle ':prezto:module:git:info:action' format '%F{7}:%f%%B%F{9}%s%f%%b'
-  zstyle ':prezto:module:git:info:added' format ' %%B%F{2}%f%%b'
-  zstyle ':prezto:module:git:info:ahead' format ' %%B%F{13}%f%%b'
-  zstyle ':prezto:module:git:info:behind' format ' %%B%F{13}%f%%b'
+  zstyle ':prezto:module:git:info:added' format ' %%B%F{2}%f%%b'
+  zstyle ':prezto:module:git:info:ahead' format ' %%B%F{13}%f%%b'
+  zstyle ':prezto:module:git:info:behind' format ' %%B%F{13}%f%%b'
   zstyle ':prezto:module:git:info:branch' format ' %%B%F{2}%b%f%%b'
   zstyle ':prezto:module:git:info:commit' format ' %%B%F{3}%.7c%f%%b'
-  zstyle ':prezto:module:git:info:deleted' format ' %%B%F{1}%f%%b'
-  zstyle ':prezto:module:git:info:modified' format ' %%B%F{4}%f%%b'
+  zstyle ':prezto:module:git:info:deleted' format ' %%B%F{1}%f%%b'
+  zstyle ':prezto:module:git:info:modified' format ' %%B%F{4}%f%%b'
   zstyle ':prezto:module:git:info:position' format ' %%B%F{13}%p%f%%b'
-  zstyle ':prezto:module:git:info:renamed' format ' %%B%F{5}%f%%b'
+  zstyle ':prezto:module:git:info:renamed' format ' %%B%F{5}%f%%b'
   zstyle ':prezto:module:git:info:stashed' format ' %%B%F{6}%f%%b'
   zstyle ':prezto:module:git:info:unmerged' format ' %%B%F{3}%f%%b'
-  zstyle ':prezto:module:git:info:untracked' format ' %%B%F{7}%f%%b'
+  zstyle ':prezto:module:git:info:untracked' format ' %%B%F{7}%f%%b'
   zstyle ':prezto:module:git:info:keys' format \
     'status' '$(coalesce "%b" "%p" "%c")%s%A%B%S%a%d%m%r%U%u'
 
