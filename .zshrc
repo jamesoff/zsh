@@ -214,4 +214,4 @@ if has tmux; then
 fi
 
 # kick off a recompile of .zsh and the compdump file in the background, if needed
-( autoload -U zrecompile && zrecompile -p ~/.zshrc -- ~/.zcompdump ) &!
+( autoload -U zrecompile && zrecompile -p ~/.zshrc -- ~/.zcompdump > /dev/null ) &!
