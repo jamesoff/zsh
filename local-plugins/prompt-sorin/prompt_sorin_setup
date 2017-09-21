@@ -113,7 +113,7 @@ function prompt_sorin_precmd_async {
   fi
   typeset -p _prompt_sorin_krb_status >! "$_prompt_sorin_precmd_async_data"
 
-  if [[ $USER == "jseward61" ]]; then
+  if [[ $USER == "jseward61" && -z $TMUX ]]; then
 	  if netstat -rn -f inet | grep gpd0 >/dev/null; then
 		  _prompt_sorin_vpn_status="  "
 	  else
