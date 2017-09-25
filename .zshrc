@@ -67,7 +67,7 @@ unsetopt AUTO_CD
 # Set up prompt
 setopt TRANSIENT_RPROMPT
 prompt sorin
-zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{2}%%%f%b'
+zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{31}%%%f%b'
 zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{1}$%f%b'
 
 # Thing to add to PATH, if they exist
