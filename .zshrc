@@ -118,6 +118,7 @@ export CLICOLOR=true
 
 export FZF_DEFAULT_OPTS='-e --height=15 --reverse'
 export FZF_TMUX=0
+has rg && export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*"'
 
 [ -d ~/.config ] && export XDG_CONFIG_HOME=~/.config
 
