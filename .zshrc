@@ -133,6 +133,7 @@ if [ -d /Users/jseward61 ]; then
 	export KRB5CCNAME=/tmp/jseward61_krb5cache
 	export KERB_ID=jseward
 	alias kinit="kinit -c $KRB5CCNAME $KERB_ID@AOL.COM"
+	export VAULT_ADDR=https://oe-vault.us-east-1.aolp-prd.aolcloud.net:8200
 fi
 
 has flake8 && alias flake8="flake8 --ignore=E501"
