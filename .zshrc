@@ -83,7 +83,6 @@ DIRS=(
 
 # Things to source, if they exist
 FILES=(
-	/usr/local/share/zsh/site-functions/_aws
 	/Users/james/.travis/travis.sh
 	~/.iterm2_shell_integration.zsh
 	~/.fzf.zsh
