@@ -22,6 +22,8 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 fpath=(${ZDOTDIR:-$HOME/.zsh}/local-plugins/prompt-sorin $fpath)
 autoload -Uz promptinit && promptinit
 
+[ -d /usr/local/share/zsh/site-functions ] && fpath=(/usr/local/share/zsh/site-functions $fpath)
+
 ZSH_LOCAL_PLUGINS="~/.zsh/local-plugins"
 
 # self-manage
