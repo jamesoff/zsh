@@ -1,0 +1,31 @@
+#compdef get-instances get-instances-dns get-instances-id
+
+function __instance_names() {
+	local -a instance_names
+
+	zstyle -s ":completion:${curcontext}:" cache-policy update_policy
+	if [[ -z $update_policy ]]; then
+		zstyle ":completion:${curcontext}:" cache-policy __instances_caching_policy
+	fi
+
+	cache_key="instance_names-${AWS_PROFILE}_${AWS_DEFAULT_REGION}"
+
+	if _cache_invalid "$cache_key" || ! _retrieve_cache "$cache_key"; then
+		instance_names=("${(@f)$(
+			aws ec2 describe-instances \
+				--filters "Name=instance-state-name,Values=running" \
+				--query 'Reservations[].Instances[].Tags[?Key==`Name`].Value' \
+				--output text | sort | uniq )}")
+		_store_cache "$cache_key" instance_names
+	fi
+
+	_describe 'instance-name' instance_names
+}
+
+function __instances_caching_policy () {
+	local -a oldp
+	oldp=( "$1"(Nmm+2) )
+	(( $#oldp ))
+}
+
+__instance_names "$@"
