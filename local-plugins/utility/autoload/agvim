@@ -1,19 +1,12 @@
 # vim: ft=zsh
 
-
 if hash "rg" &> /dev/null; then
 	AGCMD=rg
 else
 	AGCMD=ag
 fi
 
-QFTMPFILE=$( mktemp )
-CHOICE=$($AGCMD --smart-case --vimgrep $* | tee -i "$QFTMPFILE" | fzf -0 -1)
+CHOICE=$($AGCMD --smart-case --vimgrep $* | fzf -0 -1)
 if [ ! -z "$CHOICE" ]; then
-	# Open vim at the selected file and line, but also run the Ag scan
-	# the ! on Ag! stops Ag jumping to the first match, and the wincmd gives the editor window focus
-	#nvim $( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "+%d %s\n", $2, $1 } ') +"LAg! $*" "+wincmd k"
-	nvim "+cg $QFTMPFILE" $( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "+%d %s\n", $2, $1 } ') "+copen" "+let w:quickfix_title='ag'" "+wincmd k"
+	nvim "$( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "%s:%d:%d\n", $1, $2, $3 } ')"
 fi
-
-rm -f "$QFTMPFILE"
