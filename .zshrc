@@ -93,6 +93,7 @@ FILES=(
 typeset -A ALIAS_DIRS
 ALIAS_DIRS=(
 	/Users/jseward61/src/chef_repo/cookbooks chef
+	~/src src
 	)
 
 export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
@@ -216,6 +217,11 @@ if [[ -z $TMUX ]]; then
 	fi
 	unset sessions
 fi
+
+# Re-initialise completion otherwise awscli doesn't work
+# I don't like this but haven't figured out why it misbehaves on one machine
+# but not others
+compinit
 
 # kick off a recompile of .zsh and the compdump file in the background, if needed
 ( autoload -U zrecompile && zrecompile -p ~/.zshrc -- ~/.zcompdump > /dev/null ) &!
