@@ -10,3 +10,5 @@ autoload get-stack-params
 autoload get-instances-dns
 autoload get-instances-id
 autoload get-instances
+autoload get-images
+autoload get-images-info
