@@ -159,13 +159,21 @@ function prompt_sorin_setup {
   unsetopt XTRACE KSH_ARRAYS
   prompt_opts=(cr percent subst)
   _prompt_sorin_precmd_async_pid=0
-  _prompt_sorin_precmd_async_data="${TMPPREFIX}-prompt_sorin_data"
+  #_prompt_sorin_precmd_async_data="${TMPPREFIX}-prompt_sorin_data-$$"
+  tmpdir=${TMPDIR:-/tmp/}
+  _prompt_sorin_precmd_async_data=$( mktemp "${tmpdir}/zsh-prompt-XXXXX" )
+
+  # prune prompt files older than an hour
+  rm -f "${tmpdir}/zsh-prompt-*(mh+1)"
 
   # Load required functions.
   autoload -Uz add-zsh-hook
 
   # Add hook for calling git-info before each command.
   add-zsh-hook precmd prompt_sorin_precmd
+
+  # Add hook to try to tidy up data file
+  add-zsh-hook zshexit prompt_sorin_tidy
 
   # Set editor-info parameters.
   zstyle ':prezto:module:editor:info:completing' format '%B%F{7}...%f%b'
@@ -205,6 +213,10 @@ function prompt_sorin_preview {
 
   editor-info 2>/dev/null
   prompt_preview_theme 'sorin'
+}
+
+function prompt_sorin_tidy {
+  [ -f "$_prompt_sorin_precmd_async_data" ] && rm -f "$_prompt_sorin_precmd_async_data"
 }
 
 prompt_sorin_setup "$@"
