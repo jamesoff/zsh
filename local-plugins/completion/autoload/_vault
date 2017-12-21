@@ -64,6 +64,10 @@ case "$state" in
           search_path="secret"
         else
           search_path=$line[2]
+          if [[ $search_path =~ '/[^/]+$' ]]; then
+            # remove any partial typing for searching
+            search_path=$( dirname "$search_path" )
+          fi
         fi
 
         # strip trailing / off the end for consistency later
@@ -73,11 +77,11 @@ case "$state" in
         paths=("${(@f)$(vault list -format json "$search_path" 2> /dev/null | jq -r '.[]')}")
         for i in $paths; do
           if [[ $i[-1] == '/' ]]; then
-            retpaths+=("$search_path/$i")
+            retpaths+=("$search_path/${i%/}")
           fi
         done
-        _describe -t path 'path' retpaths
-        #_values -s / path $retpaths
+        #_describe -t path 'path' retpaths
+        _values -s / path $retpaths
         ;;
       (read)
         local paths
@@ -89,6 +93,10 @@ case "$state" in
           search_path="secret"
         else
           search_path=$line[2]
+          if [[ $search_path =~ '/[^/]+$' ]]; then
+            # remove any partial typing for searching
+            search_path=$( dirname "$search_path" )
+          fi
         fi
 
         # strip trailing / off the end for consistency later
@@ -97,15 +105,9 @@ case "$state" in
         # query vault for values under here
         paths=("${(@f)$(vault list -format json "$search_path" 2> /dev/null | jq -r '.[]')}")
         for i in $paths; do
-          if [[ $i[-1] == '/' ]]; then
-            retpaths+=("$search_path/${i%/}")
-          else
-            retkeys+=("$search_path/$i")
-          fi
+          retpaths+=("$search_path/$i")
         done
-        #_describe 'path' retpaths -- 'key' retkeys
-        _values -s / path $retpaths
-        _values key $retkeys
+        _values -s / key $retpaths
         ;;
     esac
     ;;
