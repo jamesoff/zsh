@@ -120,7 +120,8 @@ export CLICOLOR=true
 
 export FZF_DEFAULT_OPTS='-e --height=15 --reverse'
 export FZF_TMUX=0
-has rg && export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*"'
+has rg && export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc"'
+has rg && export FZF_CTRL_T_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc"'
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
