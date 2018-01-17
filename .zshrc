@@ -2,15 +2,11 @@
 export ENHANCD_FILTER=fzf
 export ENHANCD_COMMAND=ecd
 
-if [ ! -d ~/.zplug ]; then
-	echo Installing zplug...
-	git clone https://github.com/zplug/zplug.git .zplug
-	source ~/.zplug/init.zsh
-	echo Installing plugins...
-	ZPLUG_INSTALL_NEEDED=1
+if [ ! -f ~/.zplugin/bin/zplugin.zsh ]; then
+	echo Missing zplugin; expect errors!
+	echo Fix: mkdir ~/.zplugin && git clone https://github.com/zdharma/zplugin.git ~/.zplugin/bin
 else
-	source ~/.zplug/init.zsh
-	ZPLUG_INSTALL_NEEDED=0
+	source ~/.zplugin/bin/zplugin.zsh
 fi
 
 export LANG=en_GB.UTF-8
@@ -24,39 +20,23 @@ autoload -Uz promptinit && promptinit
 
 [ -d /usr/local/share/zsh/site-functions ] && fpath=(/usr/local/share/zsh/site-functions $fpath)
 
-ZSH_LOCAL_PLUGINS="~/.zsh/local-plugins"
+ZSH_LOCAL_PLUGINS="$HOME/.zsh/local-plugins"
 
 # self-manage
 #zplug "zplug/zplug"
 
-# borrowed from prezto
-zplug "$ZSH_LOCAL_PLUGINS/environment", from:local
-zplug "$ZSH_LOCAL_PLUGINS/helper", from:local
-zplug "$ZSH_LOCAL_PLUGINS/editor", from:local
-zplug "$ZSH_LOCAL_PLUGINS/history", from:local
-zplug "$ZSH_LOCAL_PLUGINS/directory", from:local
-zplug "$ZSH_LOCAL_PLUGINS/spectrum", from:local
-zplug "$ZSH_LOCAL_PLUGINS/completion", from:local
-zplug "$ZSH_LOCAL_PLUGINS/utility", from:local
-zplug "$ZSH_LOCAL_PLUGINS/git", from:local
-zplug "$ZSH_LOCAL_PLUGINS/osx", from:local, if:"[[ $OSTYPE == *darwin* ]]"
-zplug "mafredri/zsh-async"
-zplug "jreese/zsh-titles"
-zplug "b4b4r07/enhancd", use:init.sh
+for plugin in environment helper editor history directory spectrum completion utility git; do
+	source "$ZSH_LOCAL_PLUGINS/$plugin/init.zsh"
+done
 
-zplug "$ZSH_LOCAL_PLUGINS/aws", from:local
-zplug "supercrabtree/k", use:"*.sh", hook-build:"chmod 755 k.sh"
-#zplug "rupa/z", use:"z.sh"
+zplugin light "mafredri/zsh-async"
+zplugin light "jreese/zsh-titles"
+zplugin light "b4b4r07/enhancd"
 
-zplug "zsh-users/zsh-completions"
-#zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zdharma/fast-syntax-highlighting", defer:2
+source "$ZSH_LOCAL_PLUGINS/aws/init.zsh"
 
-if [[ $ZPLUG_INSTALL_NEEDED == 1 ]]; then
-	zplug install
-fi
-
-zplug load
+zplugin light "zsh-users/zsh-completions"
+zplugin light "zdharma/fast-syntax-highlighting"
 
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
@@ -234,7 +214,13 @@ fi
 # Re-initialise completion otherwise awscli doesn't work
 # I don't like this but haven't figured out why it misbehaves on one machine
 # but not others
-compinit
+
+#autoload -U zrecompile && zrecompile -p ~/.zcompdump > /dev/null
+if [[ -n $HOME/.zcompdump(#qN.mh+24) ]]; then
+	compinit;
+else
+	compinit -C;
+fi;
 
 # kick off a recompile of .zsh and the compdump file in the background, if needed
-( autoload -U zrecompile && zrecompile -p ~/.zshrc -- ~/.zcompdump > /dev/null ) &!
+( autoload -Uz zrecompile -p ~/.zshrc > /dev/null ) &!
