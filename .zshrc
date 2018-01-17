@@ -4,7 +4,7 @@ export ENHANCD_COMMAND=ecd
 
 if [ ! -f ~/.zplugin/bin/zplugin.zsh ]; then
 	echo Missing zplugin; expect errors!
-	echo Fix: mkdir ~/.zplugin && git clone https://github.com/zdharma/zplugin.git ~/.zplugin/bin
+	echo "Fix: mkdir ~/.zplugin && git clone https://github.com/zdharma/zplugin.git ~/.zplugin/bin"
 else
 	source ~/.zplugin/bin/zplugin.zsh
 fi
