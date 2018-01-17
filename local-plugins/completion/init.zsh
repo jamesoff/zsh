@@ -12,7 +12,7 @@ if [[ "$TERM" == 'dumb' ]]; then
 fi
 
 # Load and initialize the completion system ignoring insecure directories.
-autoload -Uz compinit && compinit -i
+autoload -Uz compinit
 
 #
 # Options
