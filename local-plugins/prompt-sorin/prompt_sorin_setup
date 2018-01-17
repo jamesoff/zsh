@@ -38,7 +38,9 @@ function prompt_space() {
 HOSTNAME=$(hostname -s)
 export HOSTCOLOUR=$(string_hash $HOSTNAME:l 7)
 
-padlock_character=""
+padlock_character=" "
+vpn_character=" "
+yahoo_character=" "
 # Line break in here is on purpose
 #PROMPT='%{$reset_color%}%n%{$fg[white]%}@%{%F{$HOSTCOLOUR}%}$HOSTNAME$SCR_WINDOW$SCR_COLOR:%{$fg[blue]%}%~%{$reset_color%}$(git_prompt_info)$(svn_prompt_info) %(0?,,%{$fg[red]%}%?!%{$reset_color%} )%(!.%{$fg[red]%}.%{$fg[green]%})%($(prompt_space)l.
 #.)%#%{$reset_color%} '
@@ -115,7 +117,7 @@ function prompt_sorin_precmd_async {
 
   if [[ $USER == "jseward61" && -z $TMUX ]]; then
 	  if netstat -rn -f inet | grep gpd0 >/dev/null; then
-		  _prompt_sorin_vpn_status="  "
+		  _prompt_sorin_vpn_status="$vpn_character"
 	  else
 		  _prompt_sorin_vpn_status=""
 	  fi
@@ -126,6 +128,11 @@ function prompt_sorin_precmd_async {
   if (( $+functions[git-info] )); then
     git-info
     typeset -p git_info >>! "$_prompt_sorin_precmd_async_data"
+  fi
+
+  if [[ $SSH_AUTH_SOCK =~ yubiagent ]]; then
+	  _prompt_sorin_yubi_status="$yahoo_character"
+	  typeset -p _prompt_sorin_yubi_status >>! "$_prompt_sorin_precmd_async_data"
   fi
 
   # Signal completion to parent process.
@@ -141,7 +148,7 @@ function prompt_sorin_precmd {
   prompt_jms_pwd
 
   # Define prompts.
-  RPROMPT='%(?:: %F{1} %f)${_prompt_sorin_krb_status}${_prompt_sorin_vpn_status}${AWS_PROFILE:+"%F{3} $AWS_PROFILE%f"}${AWS_DEFAULT_REGION:+" %F{6}$AWS_DEFAULT_REGION%f%b"}${editor_info[overwrite]}${VIRTUAL_ENV:+"%F{5} ${VIRTUAL_ENV:t}"}'
+  RPROMPT='%(?:: %F{1} %f)${_prompt_sorin_krb_status}${_prompt_sorin_vpn_status}${_prompt_sorin_yubi_status:+"%F{93}$_prompt_sorin_yubi_status%f"}${AWS_PROFILE:+"%F{3} $AWS_PROFILE%f"}${AWS_DEFAULT_REGION:+" %F{6}$AWS_DEFAULT_REGION%f%b"}${editor_info[overwrite]}${VIRTUAL_ENV:+"%F{5} ${VIRTUAL_ENV:t}"}'
 
   # Kill the old process of slow commands if it is still running.
   if (( _prompt_sorin_precmd_async_pid > 0 )); then

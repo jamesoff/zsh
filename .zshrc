@@ -205,6 +205,17 @@ else
 	alias lg=lg-missing
 fi
 
+if has yinit; then
+	alias ysock="export SSH_AUTH_SOCK=$HOME/.yubiagent/sock"
+	yinit() {
+		if ! [[ $SSH_AUTH_SOCK =~ yubiagent ]]; then
+			echo 'Switching to yubiagent SSH socket'
+			export SSH_AUTH_SOCK=$HOME/.yubiagent/sock
+		fi
+		command yinit $@
+	}
+fi
+
 # use path of $HOME as proxy for detecting OS X without running uname
 if [[ $HOME =~ Users ]]; then
 	alias tidy-finder="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user"
