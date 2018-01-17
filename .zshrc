@@ -79,6 +79,7 @@ DIRS=(
 	~/bin
 	~/Library/Python/2.7/bin
 	~/.local/bin
+	~/.cargo/bin
 	)
 
 # Things to source, if they exist
