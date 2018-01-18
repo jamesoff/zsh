@@ -216,4 +216,4 @@ else
 fi;
 
 # kick off a recompile of .zsh and the compdump file in the background, if needed
-( autoload -Uz zrecompile -p ~/.zshrc > /dev/null ) &!
+( autoload -Uz zrecompile -p ~/.zshrc -- ~/.zcompdump > /dev/null ) &!
