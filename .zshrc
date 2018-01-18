@@ -28,11 +28,13 @@ for plugin in environment helper editor history directory spectrum completion ut
 done
 unset ZSH_LOCAL_PLUGINS
 
-zplugin light "mafredri/zsh-async"
-zplugin light "jreese/zsh-titles"
-zplugin light "b4b4r07/enhancd"
-zplugin light "zsh-users/zsh-completions"
-zplugin light "zdharma/fast-syntax-highlighting"
+if [[ $_zplugin_available == 1 ]]; then
+	zplugin light "mafredri/zsh-async"
+	zplugin light "jreese/zsh-titles"
+	zplugin light "b4b4r07/enhancd"
+	zplugin light "zsh-users/zsh-completions"
+	zplugin light "zdharma/fast-syntax-highlighting"
+fi
 
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
