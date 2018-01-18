@@ -1,15 +1,17 @@
 # get rid of fzf-tmux
 export ENHANCD_FILTER=fzf
 export ENHANCD_COMMAND=ecd
+export LANG=en_GB.UTF-8
 
+# Check for and load zplugin
 if [ ! -f ~/.zplugin/bin/zplugin.zsh ]; then
-	echo Missing zplugin; expect errors!
+	echo "Missing zplugin; expect errors!"
 	echo "Fix: mkdir ~/.zplugin && git clone https://github.com/zdharma/zplugin.git ~/.zplugin/bin"
+	_zplugin_available=0
 else
 	source ~/.zplugin/bin/zplugin.zsh
+	_zplugin_available=1
 fi
-
-export LANG=en_GB.UTF-8
 
 zstyle ':prezto:module:editor' key-bindings 'emacs'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
@@ -21,20 +23,14 @@ autoload -Uz promptinit && promptinit
 [ -d /usr/local/share/zsh/site-functions ] && fpath=(/usr/local/share/zsh/site-functions $fpath)
 
 ZSH_LOCAL_PLUGINS="$HOME/.zsh/local-plugins"
-
-# self-manage
-#zplug "zplug/zplug"
-
-for plugin in environment helper editor history directory spectrum completion utility git; do
+for plugin in environment helper editor history directory spectrum completion utility git aws; do
 	source "$ZSH_LOCAL_PLUGINS/$plugin/init.zsh"
 done
+unset ZSH_LOCAL_PLUGINS
 
 zplugin light "mafredri/zsh-async"
 zplugin light "jreese/zsh-titles"
 zplugin light "b4b4r07/enhancd"
-
-source "$ZSH_LOCAL_PLUGINS/aws/init.zsh"
-
 zplugin light "zsh-users/zsh-completions"
 zplugin light "zdharma/fast-syntax-highlighting"
 
@@ -211,14 +207,11 @@ if [[ -z $TMUX ]]; then
 	unset sessions
 fi
 
-# Re-initialise completion otherwise awscli doesn't work
-# I don't like this but haven't figured out why it misbehaves on one machine
-# but not others
-
-#autoload -U zrecompile && zrecompile -p ~/.zcompdump > /dev/null
 if [[ -n $HOME/.zcompdump(#qN.mh+24) ]]; then
+	# Completion cache is older than 24h, regenerate
 	compinit;
 else
+	# Completion cache is newish, load quickly
 	compinit -C;
 fi;
 
