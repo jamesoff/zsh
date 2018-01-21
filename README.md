@@ -6,6 +6,7 @@ This is mostly in git for my benefit, but you're welcome to use it.
 
 * Minimal prompt; everything on one line unless terminal is narrow, then prompt line moves under CWD
 * Long paths in the prompt fade in to draw the eye
+* Username and hostname only appear on remote sessions; hostname is coloured by host automatically
 * Information about shell state appears on RHS, with slow items populated async to avoid slowing down prompt appearance
     - last command exit status
     - git branch and repo status
