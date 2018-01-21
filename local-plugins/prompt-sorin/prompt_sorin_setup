@@ -25,6 +25,8 @@
 # 15 bright white
 #
 
+setopt TRANSIENT_RPROMPT
+
 # Average prompt length computed with:
 function prompt_calculate_max() {
 	fc -R

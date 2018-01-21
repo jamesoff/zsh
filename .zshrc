@@ -23,8 +23,8 @@ autoload -Uz promptinit && promptinit
 [ -d /usr/local/share/zsh/site-functions ] && fpath=(/usr/local/share/zsh/site-functions $fpath)
 
 ZSH_LOCAL_PLUGINS="$HOME/.zsh/local-plugins"
-for plugin in environment helper editor history directory spectrum completion utility git aws; do
-	source "$ZSH_LOCAL_PLUGINS/$plugin/init.zsh"
+for plugin in $ZSH_LOCAL_PLUGINS/*(/); do
+	source "$plugin/init.zsh"
 done
 unset ZSH_LOCAL_PLUGINS
 
@@ -35,17 +35,11 @@ if [[ $_zplugin_available == 1 ]]; then
 	zplugin light "zsh-users/zsh-completions"
 	zplugin light "zdharma/fast-syntax-highlighting"
 fi
-
-autoload -Uz url-quote-magic
-zle -N self-insert url-quote-magic
-
-unsetopt MAIL_WARNING
-setopt NOTIFY
+unset _zplugin_available
 
 unsetopt AUTO_CD
 
 # Set up prompt
-setopt TRANSIENT_RPROMPT
 prompt sorin
 zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{31}%%%f%b'
 zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{1}$%f%b'
@@ -92,25 +86,12 @@ for d in "${(@k)ALIAS_DIRS}"; do
 done
 unset d ALIAS_DIRS
 
-# Make clean tarballs on OS X without extended attrs
-export COPYFILE_DISABLE=true
-
-export CLICOLOR=true
-
 export FZF_DEFAULT_OPTS='-e --height=15 --reverse'
 export FZF_TMUX=0
 has rg && export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc"'
 has rg && export FZF_CTRL_T_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc"'
 
-export VIRTUAL_ENV_DISABLE_PROMPT=1
-
 [ -d ~/.config ] && export XDG_CONFIG_HOME=~/.config
-
-# Use ports/brew gcc if installed
-if [ -x /usr/local/bin/gcc ]; then
-	export CC=/usr/local/bin/gcc
-	export CXX=/usr/local/bin/gcc
-fi
 
 if [ -d /Users/jseward61 ]; then
 	export KRB5CCNAME=/tmp/jseward61_krb5cache

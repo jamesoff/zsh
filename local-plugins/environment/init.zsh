@@ -46,3 +46,12 @@ if zstyle -t ':prezto:environment:termcap' color; then
   export LESS_TERMCAP_ue=$'\E[0m'          # Ends underline.
   export LESS_TERMCAP_us=$'\E[01;32m'      # Begins underline.
 fi
+
+# Make clean tarballs on OS X without extended attrs
+export COPYFILE_DISABLE=true
+
+# I forget what this is for
+export CLICOLOR=true
+
+# Stop virtualenv changing our prompt
+export VIRTUAL_ENV_DISABLE_PROMPT=1
