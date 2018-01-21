@@ -153,15 +153,6 @@ function fzf-cd-history() {
 zle -N fzf-cd-history
 bindkey '^[d' fzf-cd-history
 
-function fzf-cd-z() {
-	dir=$( z -l | sort -nr | awk '{print $2}' | fzf --height=10 --header="Most used directories" )
-	if [[ ! -z $dir ]]; then
-		cd "$dir"
-	fi
-}
-zle -N fzf-cd-z
-bindkey '^[z' fzf-cd-z
-
 has docker && run-docker () {
 	docker run -i -t --rm $1 /bin/bash
 }
