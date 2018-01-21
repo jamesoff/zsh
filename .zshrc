@@ -174,11 +174,13 @@ fi
 
 # show available tmux sessions
 if [[ -z $TMUX ]]; then
-	sessions=$( tmux ls 2> /dev/null | awk '! /attached/ { sub(":", "", $1); print $1; }' | xargs echo )
-	if [[ ! -z $sessions ]]; then
-		echo "==> Available tmux sessions: $sessions"
+	if has tmux; then
+		sessions=$( tmux ls 2> /dev/null | awk '! /attached/ { sub(":", "", $1); print $1; }' | xargs echo )
+		if [[ ! -z $sessions ]]; then
+			echo "==> Available tmux sessions: $sessions"
+		fi
+		unset sessions
 	fi
-	unset sessions
 fi
 
 if [[ -n $HOME/.zcompdump(#qN.mh+24) ]]; then
