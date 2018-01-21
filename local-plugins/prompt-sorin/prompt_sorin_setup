@@ -26,14 +26,50 @@
 #
 
 # Average prompt length computed with:
-# % COUNT=0; TOTAL=0; for j in $( for i in $( history | awk '{OFS="_"; $1 = ""; print $0}' ); do; echo "$i" | wc -c; done ); do; COUNT=$(( COUNT + 1 )); TOTAL=`echo $TOTAL+$j | bc`; done; echo total=$TOTAL count=$COUNT; echo -n average=; echo "$TOTAL / $COUNT" | bc
-# total=74843 count=2749
-# average=27
-PROMPT_AVERAGE=82
+function prompt_calculate_max() {
+	fc -R
+	fc -l 0 | awk '
+	BEGIN { count = 0; sum = 0 }
+	{
+		$1 = ""
+		count = count + 1
+		sum = sum + length($0)
+	}
+	END { printf "%.0f", sum/count }
+	'
+}
+
+_prompt_sorin_average_cache="${TMPDIR:-/tmp}/zsh-prompt-average-$UID"
+if [[ ! -o extendedglob ]]; then
+	setopt extendedglob
+	_need_glob_off=1
+fi
+
+if [[ ! -f "$_prompt_sorin_average_cache" ]]; then
+	PROMPT_AVERAGE=$(prompt_calculate_max)
+	typeset -p PROMPT_AVERAGE >! $_prompt_sorin_average_cache
+elif [[ -n $_prompt_sorin_average_cache(#qN.mh+24) ]]; then
+	PROMPT_AVERAGE=$(prompt_calculate_max)
+	typeset -p PROMPT_AVERAGE >! $_prompt_sorin_average_cache
+else
+	alias typeset='typeset -g'
+	source "$_prompt_sorin_average_cache"
+	unalias typeset
+fi
+
+if [[ -n $_need_glob_off ]]; then
+	setopt noextendedglob
+	unset _need_glob_off
+fi
 
 function prompt_space() {
 	# Returns maximum length of command prompt which leaves space for average length command, based on current terminal width
-	echo $(( $(tput cols) - $PROMPT_AVERAGE ))
+	local max
+	max=$(( $(tput cols) - $PROMPT_AVERAGE ))
+	if [[ $max < 0 ]]; then
+		max=0
+	fi
+	echo $max
 }
 HOSTNAME=$(hostname -s)
 export HOSTCOLOUR=$(string_hash $HOSTNAME:l 7)
