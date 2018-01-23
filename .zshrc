@@ -2,6 +2,7 @@
 export ENHANCD_FILTER=fzf
 export ENHANCD_COMMAND=ecd
 export LANG=en_GB.UTF-8
+setopt TRANSIENT_RPROMPT
 
 # Check for and load zplugin
 if [ ! -f ~/.zplugin/bin/zplugin.zsh ]; then
