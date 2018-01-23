@@ -45,16 +45,6 @@ prompt sorin
 zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{31}%%%f%b'
 zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{1}$%f%b'
 
-# Thing to add to PATH, if they exist
-DIRS=(
-	/usr/local/bin
-	/usr/X11R6/bin
-	~/bin
-	~/Library/Python/2.7/bin
-	~/.local/bin
-	~/.cargo/bin
-	)
-
 # Things to source, if they exist
 FILES=(
 	/Users/james/.travis/travis.sh
@@ -69,16 +59,6 @@ ALIAS_DIRS=(
 	/Users/jseward/src/chef_repo/cookbooks chef
 	~/src src
 	)
-
-export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
-for d in $DIRS; do
-	if [ -d $d ]; then
-		export PATH=$PATH:$d
-	fi
-done
-NEWPATH=$(echo $PATH | awk -F: '{for (i=1;i<=NF;i++) { if ( !x[$i]++ ) printf("%s:",$i); }}')
-PATH=${NEWPATH:0:-1}
-unset DIRS NEWPATH
 
 for d in "${(@k)ALIAS_DIRS}"; do
 	if [ -d "$d" ]; then
