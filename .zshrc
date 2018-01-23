@@ -65,7 +65,7 @@ FILES=(
 # Dirs to alias, if they exist
 typeset -A ALIAS_DIRS
 ALIAS_DIRS=(
-	/Users/jseward61/src/chef_repo/cookbooks chef
+	/Users/jseward/src/chef_repo/cookbooks chef
 	~/src src
 	)
 
@@ -93,8 +93,8 @@ has rg && export FZF_CTRL_T_COMMAND='rg --files --no-ignore --hidden --glob "!.g
 
 [ -d ~/.config ] && export XDG_CONFIG_HOME=~/.config
 
-if [ -d /Users/jseward61 ]; then
-	export KRB5CCNAME=/tmp/jseward61_krb5cache
+if [ -d /Users/jseward ]; then
+	export KRB5CCNAME=/tmp/jseward_krb5cache
 	export KERB_ID=jseward
 	alias kinit="kinit -c $KRB5CCNAME $KERB_ID@AOL.COM"
 	export VAULT_ADDR=https://oe-vault.us-east-1.aolp-prd.aolcloud.net:8200
