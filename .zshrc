@@ -149,9 +149,11 @@ has docker && tidy-docker() {
 
 has fzf && autoload gita
 bindkey -e "^XG" git-commit-edit
-
 if has exa; then
-	alias lg='exa -l --git'
+	alias lg='exa -l --git --color-scale'
+	alias ll='exa -l --color-scale'
+	alias lt='exa -l -T --git --color-scale'
+	alias ls='exa'
 else
 	lg-missing() { echo 'exa is not installed :(' }
 	alias lg=lg-missing
