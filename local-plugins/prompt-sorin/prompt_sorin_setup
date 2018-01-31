@@ -87,36 +87,37 @@ yahoo_character=" "
 #.)%#%{$reset_color%} '
 
 function prompt_jms_pwd {
-  #local pwd="${PWD/#$HOME/~}"
-  local pwd=$( print -P %~ )
+	local pwd=$( print -P %~ )
 
-  # Match / or ~ alone
-  if [[ "$pwd" == (#m)[/~] ]]; then
-    _prompt_sorin_pwd="%F{254}$MATCH"
-    unset MATCH
-  else
-    #_prompt_sorin_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
-	prompt_bits=(${(@s:/:)pwd})
-	colour_code=$(( 255 - ( 2 * ${#prompt_bits} ) ))
-	if [[ $colour_code < 240 ]]; then
-		colour_code=240
-	fi
-	declare prompt_string=""
-	if [[ "$pwd" == /* ]]; then
-		prompt_string="%F{$colour_code}/"
-	fi
-	for d in $prompt_bits; do
-		prompt_string="${prompt_string}%F{$colour_code}$d/"
-		(( colour_code += 2 ))
-		if [[ $colour_code > 255 ]]; then
-			colour_code=255
+	if [[ $_prompt_sorin_last_pwd != $pwd ]]; then
+		# Match / or ~ alone
+		if [[ "$pwd" == (#m)[/~] ]]; then
+			_prompt_sorin_pwd="%F{254}$MATCH"
+			unset MATCH
+		else
+			#_prompt_sorin_pwd="${${${${(@j:/:M)${(@s:/:)pwd}##.#?}:h}%/}//\%/%%}/${${pwd:t}//\%/%%}"
+			prompt_bits=(${(@s:/:)pwd})
+			colour_code=$(( 255 - ( 2 * ${#prompt_bits} ) ))
+			if [[ $colour_code < 240 ]]; then
+				colour_code=240
+			fi
+			declare prompt_string=""
+			if [[ "$pwd" == /* ]]; then
+				prompt_string="%F{$colour_code}/"
+			fi
+			for d in $prompt_bits; do
+				prompt_string="${prompt_string}%F{$colour_code}$d/"
+				(( colour_code += 2 ))
+				if [[ $colour_code > 255 ]]; then
+					colour_code=255
+				fi
+			done
+
+			# Remove trailing /
+			_prompt_sorin_pwd="${prompt_string%/}"
 		fi
-	done
-
-
-	# Remove trailing /
-	_prompt_sorin_pwd="${prompt_string%/}"
-  fi
+	fi
+	_prompt_sorin_last_pwd="$pwd"
 }
 
 function prompt_sorin_pwd {
