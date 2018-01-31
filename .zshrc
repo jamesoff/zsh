@@ -178,13 +178,21 @@ if [[ -z $TMUX ]]; then
 	fi
 fi
 
-if [[ -n $HOME/.zcompdump(#qN.mh+24) ]]; then
+_zcompdump="$HOME/.zcompdump"
+if [[ ! -f "$_zcompdump" ]]; then
 	# Completion cache is older than 24h, regenerate
-	compinit;
+	compinit -d $HOME/.zcompdump
+	_zsh_load_info="$_zsh_load_info\nran compinit (missing)"
+elif [[ -n $_zcompdump(#qN.mh+24) ]]; then
+	# Completion cache is older than 24h, regenerate
+	compinit -d $HOME/.zcompdump
+	_zsh_load_info="$_zsh_load_info\nran compinit (too old)"
 else
 	# Completion cache is newish, load quickly
 	compinit -C;
+	_zsh_load_info="$_zsh_load_info\nused compinit cache"
 fi
+unset _zcompdump
 
 # kick off a recompile of .zsh and the compdump file in the background, if needed
 ( autoload -U zrecompile && zrecompile -p ~/.zshrc -- ~/.zcompdump > /dev/null ) &!
