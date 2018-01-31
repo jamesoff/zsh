@@ -45,6 +45,10 @@ prompt sorin
 zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{31}%%%f%b'
 zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{1}$%f%b'
 
+# Fix output of commands which don't print a newline at the end
+setopt PROMPT_SP
+export PROMPT_EOL_MARK="%F{red} %f"
+
 # Things to source, if they exist
 FILES=(
 	/Users/james/.travis/travis.sh
