@@ -4,6 +4,8 @@ export ENHANCD_COMMAND=ecd
 export LANG=en_GB.UTF-8
 setopt TRANSIENT_RPROMPT
 
+_zsh_load_info=""
+
 # Check for and load zplugin
 if [ ! -f ~/.zplugin/bin/zplugin.zsh ]; then
 	echo "Missing zplugin; expect errors!"
@@ -67,14 +69,18 @@ ALIAS_DIRS=(
 for d in "${(@k)ALIAS_DIRS}"; do
 	if [ -d "$d" ]; then
 		hash -d $ALIAS_DIRS[$d]=$d
+		_zsh_load_info="$_zsh_load_info\naliased dir $d"
 	fi
 done
 unset d ALIAS_DIRS
 
 export FZF_DEFAULT_OPTS='-e --height=15 --reverse'
 export FZF_TMUX=0
-has rg && export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc"'
-has rg && export FZF_CTRL_T_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc"'
+if has rg; then
+	export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc"'
+	export FZF_CTRL_T_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc"'
+	_zsh_load_info="$_zsh_load_info\nfound rg and set up fzf"
+fi
 
 [ -d ~/.config ] && export XDG_CONFIG_HOME=~/.config
 
@@ -83,6 +89,18 @@ if [ -d /Users/jseward ]; then
 	export KERB_ID=jseward
 	alias kinit="kinit -c $KRB5CCNAME $KERB_ID@AOL.COM"
 	export VAULT_ADDR=https://oe-vault.us-east-1.aolp-prd.aolcloud.net:8200
+	_zsh_load_info="$_zsh_load_info\nenabled work config"
+
+	if has yinit; then
+		alias ysock="export SSH_AUTH_SOCK=$HOME/.yubiagent/sock"
+		yinit() {
+			if ! [[ $SSH_AUTH_SOCK =~ yubiagent ]]; then
+				echo 'Switching to yubiagent SSH socket'
+				export SSH_AUTH_SOCK=$HOME/.yubiagent/sock
+			fi
+			command yinit $@
+		}
+	fi
 fi
 
 has flake8 && alias flake8="flake8 --ignore=E501"
@@ -138,20 +156,10 @@ if has exa; then
 	alias ll='exa -l --color-scale'
 	alias lt='exa -l -T --git --color-scale'
 	alias ls='exa'
+	_zsh_load_info="$_zsh_load_info\nfound exa and configured aliases"
 else
 	lg-missing() { echo 'exa is not installed :(' }
 	alias lg=lg-missing
-fi
-
-if has yinit; then
-	alias ysock="export SSH_AUTH_SOCK=$HOME/.yubiagent/sock"
-	yinit() {
-		if ! [[ $SSH_AUTH_SOCK =~ yubiagent ]]; then
-			echo 'Switching to yubiagent SSH socket'
-			export SSH_AUTH_SOCK=$HOME/.yubiagent/sock
-		fi
-		command yinit $@
-	}
 fi
 
 # use path of $HOME as proxy for detecting OS X without running uname
