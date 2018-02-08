@@ -162,6 +162,16 @@ else
 	alias lg=lg-missing
 fi
 
+if [[ -x ~/src/cloud/post-image.sh ]]; then
+	function post() {
+		~/src/cloud/post-image.sh "$1" | pbc
+	}
+else
+	function post() {
+		echo 'cloud post-image.sh is not available or not executable'
+	}
+fi
+
 # use path of $HOME as proxy for detecting OS X without running uname
 if [[ $HOME =~ Users ]]; then
 	alias tidy-finder="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user"
