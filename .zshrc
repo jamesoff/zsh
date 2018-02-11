@@ -164,13 +164,21 @@ fi
 
 if [[ -x ~/src/cloud/post-image.sh ]]; then
 	function post() {
-		~/src/cloud/post-image.sh "$1" | pbc
+		post_url=$( ~/src/cloud/post-image.sh "$1" )
+		if [[ -n $post_url ]]; then
+			echo "--> $post_url"
+			export POST_LAST_URL=$post_url
+			echo $post_url | pbc
+		else
+			echo "Failed."
+		fi
 	}
 else
 	function post() {
 		echo 'cloud post-image.sh is not available or not executable'
 	}
 fi
+alias post-recent-screenshot='post ~/Desktop/Screen\ Shot\ *(om[1])'
 
 # use path of $HOME as proxy for detecting OS X without running uname
 if [[ $HOME =~ Users ]]; then
