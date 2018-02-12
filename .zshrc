@@ -200,11 +200,12 @@ fi
 _zcompdump="$HOME/.zcompdump"
 if [[ ! -f "$_zcompdump" ]]; then
 	# Completion cache is older than 24h, regenerate
-	compinit -d $HOME/.zcompdump
+	compinit -d $_zcompdump
 	_zsh_load_info="$_zsh_load_info\nran compinit (missing)"
 elif [[ -n $_zcompdump(#qN.mh+24) ]]; then
 	# Completion cache is older than 24h, regenerate
-	compinit -d $HOME/.zcompdump
+	rm -f $_zcompdump
+	compinit -d $_zcompdump
 	_zsh_load_info="$_zsh_load_info\nran compinit (too old)"
 else
 	# Completion cache is newish, load quickly
