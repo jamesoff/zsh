@@ -167,6 +167,7 @@ if [[ -x ~/src/cloud/post-image.sh ]]; then
 		post_url=$( ~/src/cloud/post-image.sh "$1" )
 		if [[ -n $post_url ]]; then
 			echo "--> $post_url"
+			post_url=$( echo $post_url | tr -d '\n' )
 			export POST_LAST_URL=$post_url
 			echo $post_url | pbc
 		else
