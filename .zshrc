@@ -27,7 +27,7 @@ autoload -Uz promptinit && promptinit
 
 ZSH_LOCAL_PLUGINS="$HOME/.zsh/local-plugins"
 for plugin in $ZSH_LOCAL_PLUGINS/*(/); do
-	source "$plugin/init.zsh"
+	[ -f "$plugin/init.zsh" ] && source "$plugin/init.zsh"
 done
 unset ZSH_LOCAL_PLUGINS
 
