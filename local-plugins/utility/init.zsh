@@ -1,8 +1,10 @@
 fpath=( ~/.zsh/local-plugins/utility/autoload $fpath )
 
-autoload agvim try-ssh has git-commit-edit
+autoload agvim try-ssh has git-commit-edit fv
 zle -N git-commit-edit
 
+alias rv='agvim'
+alias av='agvim'
 #
 # Defines general aliases and functions.
 #
@@ -21,7 +23,7 @@ setopt CORRECT
 
 # Disable correction.
 alias ack='nocorrect ack'
-#alias cd='nocorrect cd'
+alias cd='nocorrect cd'
 alias cp='nocorrect cp'
 alias ebuild='nocorrect ebuild'
 alias gcc='nocorrect gcc'

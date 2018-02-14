@@ -1,0 +1,7 @@
+# vim: ft=zsh
+
+CHOICE=($(fzf -m -0 -1 -q "$1"))
+if [ ! -z "$CHOICE" ]; then
+	$EDITOR "$CHOICE[@]"
+fi
+
