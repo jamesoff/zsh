@@ -53,7 +53,7 @@ export PROMPT_EOL_MARK="%F{red} %f"
 
 # Things to source, if they exist
 FILES=(
-	/Users/james/.travis/travis.sh
+	~/.travis/travis.sh
 	~/.iterm2_shell_integration.zsh
 	~/.fzf.zsh
 	~/.config/homebrew-token
@@ -62,7 +62,7 @@ FILES=(
 # Dirs to alias, if they exist
 typeset -A ALIAS_DIRS
 ALIAS_DIRS=(
-	/Users/jseward/src/chef_repo/cookbooks chef
+	~/src/chef_repo/cookbooks chef
 	~/src src
 	)
 
@@ -120,6 +120,7 @@ REPORTTIME=10
 
 for f in $FILES; do
 	if [ -f $f ]; then
+		_zsh_load_info="$_zsh_load_info\nsourced file $f"
 		source $f
 	fi
 done
