@@ -1,0 +1,7 @@
+# vim: ft=zsh
+
+if [[ $# == 1 ]]; then
+	openssl x509 -in "$1" -noout -text
+else
+	echo 'usage: $0 cert-file'
+fi
