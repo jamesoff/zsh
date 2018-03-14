@@ -9,6 +9,7 @@ DIRS=(
 	/usr/X11R6/bin
 	~/bin
 	~/Library/Python/2.7/bin
+	~/Library/Python/3.6/bin
 	~/.local/bin
 	~/.cargo/bin
 	)
