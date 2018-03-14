@@ -2,6 +2,10 @@
 
 This is mostly in git for my benefit, but you're welcome to use it.
 
+![screenshot of terminal](.github/Screen%20Shot%202018-03-14%20at%2017.28.41.png)
+
+(Pictured: CWD fade in, `exa`'s git listing, `fzf` being used to pick a file to open with vim. Includes my tmux status bar, which is nothing to do with zsh.)
+
 ## Features
 
 Non-exhaustive list:
