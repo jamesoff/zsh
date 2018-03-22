@@ -192,7 +192,7 @@ if [[ -z $TMUX ]]; then
 	if has tmux; then
 		sessions=$( tmux ls 2> /dev/null | awk '! /attached/ { sub(":", "", $1); print $1; }' | xargs echo )
 		if [[ ! -z $sessions ]]; then
-			echo "==> Available tmux sessions: $sessions"
+			echo "==> Available tmux sessions: $sessions; run 't' to attach"
 		fi
 		unset sessions
 	fi

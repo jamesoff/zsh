@@ -1,0 +1,18 @@
+# vim: ft=zsh
+
+if [[ -n $SSH_TTY ]]; then
+	# else the server will make zsh think it's remote all the time
+	unset SSH_TTY
+	is_remote=1
+fi
+
+if [[ -n $SSH_TTY || is_remote == 1 ]]; then
+	echo '    This looks remote'
+	tmux new-session -A -t local -s remote
+elif [[ $COLUMNS -gt 200 ]]; then
+	echo '    This looks local and fullscreen'
+	tmux new-session -A -t local -s fullscreen
+else
+	echo '    This looks local'
+	tmux new-session -A -t local -s local
+fi
