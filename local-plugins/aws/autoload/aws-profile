@@ -1,16 +1,9 @@
 # vim: ft=zsh
 
-declare -A profiles
-profiles[aol-advertising]="926316505624 AOL-SSO-OE"
-profiles[AOLP-DataServices-Prod]="394273476801 AOL-SSO-OE"
-profiles[aolp-ext]="525960771053 AOL-SSO-OE"
-profiles[AOLP-DataServices-Dev]="403975324270 AOL-SSO-OE"
-profiles[aolp-dev]="834532206868 AOL-SSO-OE"
-profiles[AOLP-Data-Lake]="911349575242 AOL-SSO-OE"
-profiles[aolp-prd]="037178170865 AOL-SSO-OE"
-profiles[AOLP-PROD-RTB]="391084588858 AOL-SSO-OE"
-profiles[aolp-prod-mm]="780580166570 AOL-SSO-OE"
-profiles[AOLP-DEV-RTB]="877078222452 AOL-SSO-OE"
+# Takes the format:
+# declare -A profiles
+# profiles[ACCOUNT_NAME]="ACCOUNT_ID ROLE_NAME"
+[ -f ~/.zsh/local-data/aws-profiles ] && source ~/.zsh/local-data/aws-profiles
 
 local profile=$1
 local fixed=0
