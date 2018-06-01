@@ -49,6 +49,9 @@ fi
 
 if [[ ! -f "$_prompt_sorin_average_cache" ]]; then
 	PROMPT_AVERAGE=$(prompt_calculate_max)
+	if [[ -z $PROMPT_AVERAGE ]]; then
+		PROMPT_AVERAGE=50
+	fi
 	typeset -p PROMPT_AVERAGE >! $_prompt_sorin_average_cache
 	_zsh_load_info="$_zsh_load_info\nprompt average calculated"
 elif [[ -n $_prompt_sorin_average_cache(#qN.mh+24) ]]; then
