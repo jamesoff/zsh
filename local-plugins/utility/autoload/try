@@ -1,0 +1,26 @@
+# vim: ft=zsh
+
+retry_time=${RETRY_TIME:-15}
+max_retry_time=${RETRY_TIME_MAX:-120}
+attempts=0
+
+SUCCESS=0
+while [ $SUCCESS -eq 0 ]; do
+	$*
+	RESULT=$?
+	attempts=$(( attempts + 1 ))
+	if [[ $RESULT -eq 0 ]]; then
+		SUCCESS=1
+		if [[ $attempts -gt 1 ]]; then
+			echo "--> Success after $attempts attempts"
+		fi
+	else
+		echo "--> Return code was $RESULT"
+		echo "    Waiting to retry after ${retry_time}s..."
+		sleep "$retry_time"
+		if [[ $retry_time -lt $max_retry_time ]]; then
+			retry_time=$(( retry_time * 2 ))
+		fi
+		echo "--> Retrying..."
+	fi
+done
