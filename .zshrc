@@ -3,6 +3,7 @@ export ENHANCD_FILTER=fzf
 export ENHANCD_COMMAND=ecd
 export LANG=en_GB.UTF-8
 setopt TRANSIENT_RPROMPT
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 _zsh_load_info=""
 
@@ -37,6 +38,8 @@ if [[ $_zplugin_available == 1 ]]; then
 	zplugin light "b4b4r07/enhancd"
 	zplugin light "zsh-users/zsh-completions"
 	zplugin light "zdharma/fast-syntax-highlighting"
+	zplugin ice ver"develop"
+	zplugin light "zsh-users/zsh-autosuggestions"
 fi
 unset _zplugin_available
 
@@ -219,3 +222,4 @@ unset _zcompdump
 
 # kick off a recompile of .zsh and the compdump file in the background, if needed
 ( autoload -U zrecompile && zrecompile -p ~/.zshrc -- ~/.zcompdump > /dev/null ) &!
+export ZSH_AUTOSUGGEST_USE_ASYNC=1
