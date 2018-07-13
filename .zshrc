@@ -116,7 +116,9 @@ else
 	export VISUAL=vim
 fi
 
+autoload colors && colors
 REPORTTIME=10
+TIMEFMT="$fg[green]%J$reset_color  $fg[blue]%U user $fg[yellow]%S system $fg[magenta]%P cpu $fg[red]%*E total"
 
 for f in $FILES; do
 	if [ -f $f ]; then
