@@ -5,6 +5,8 @@
 # profiles[ACCOUNT_NAME]="ACCOUNT_ID ROLE_NAME"
 [ -f ~/.zsh/local-data/aws-profiles ] && source ~/.zsh/local-data/aws-profiles
 
+declare -A profiles
+
 local profile=$1
 local fixed=0
 

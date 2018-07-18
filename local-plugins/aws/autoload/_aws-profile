@@ -1,7 +1,10 @@
 #compdef aws-profile
 
 local -a options
-#options=( "${(@f)$( sed -e '/^\[/p' -n ~/.aws/credentials | tr -d '[]' | sort )}" )
-[ -f ~/.zsh/local-data/aws-profiles ] && source ~/.zsh/local-data/aws-profiles
-options=("${(@k)profiles}")
+options=( "${(@f)$( sed -e '/^\[/p' -n ~/.aws/credentials | tr -d '[]' | sort )}" )
+#[ -f ~/.zsh/local-data/aws-profiles ] && source ~/.zsh/local-data/aws-profiles
+#options=("${(@k)profiles}")
+if [[ -n $AWS_PROFILE ]]; then
+	options+=("--clear")
+fi
 _describe 'profiles' options

@@ -4,7 +4,14 @@ function aws-region() {
 	export AWS_DEFAULT_REGION=$1
 }
 
-autoload aws-profile
+function aws-profile() {
+	if [[ $1 == "--clear" ]]; then
+		unset AWS_PROFILE
+	else
+		export AWS_PROFILE=$1
+	fi
+}
+
 autoload watch-elb
 autoload get-stack-params
 autoload get-instances-dns
