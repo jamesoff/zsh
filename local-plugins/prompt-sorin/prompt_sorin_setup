@@ -192,7 +192,7 @@ function prompt_sorin_precmd {
   prompt_jms_pwd
 
   # Define prompts.
-  RPROMPT='%(?:: %F{1} $? %f)${_prompt_sorin_krb_status}${_prompt_sorin_vpn_status}${_prompt_sorin_yubi_status:+"%F{93}$_prompt_sorin_yubi_status%f"}${AWS_PROFILE:+"%F{3} $AWS_PROFILE%f "}${AWS_DEFAULT_REGION:+"%F{6}$AWS_DEFAULT_REGION%f%b "}${editor_info[overwrite]}${VIRTUAL_ENV:+"%F{5} ${VIRTUAL_ENV:t} "}'
+  RPROMPT='%(?:: %F{1} $? %f)${_prompt_sorin_krb_status}${_prompt_sorin_vpn_status}${_prompt_sorin_yubi_status:+"%F{93}$_prompt_sorin_yubi_status%f"}${AWS_PROFILE:+"%F{3} $AWS_PROFILE%f "}${AWS_DEFAULT_REGION:+"%F{6}$AWS_DEFAULT_REGION%f%b "}${editor_info[overwrite]}${VIRTUAL_ENV:+"%F{5} %(0L.%14>...>${VIRTUAL_ENV:t}.%14>...>${VIRTUAL_ENV:t}) "}'
 
   # Kill the old process of slow commands if it is still running.
   if (( _prompt_sorin_precmd_async_pid > 0 )); then
