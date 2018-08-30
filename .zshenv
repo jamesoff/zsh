@@ -13,6 +13,7 @@ DIRS=(
 	~/Library/Python/3.6/bin
 	~/.local/bin
 	~/.cargo/bin
+	~/go/bin
 	)
 
 export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
