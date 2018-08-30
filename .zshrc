@@ -169,6 +169,11 @@ else
 	alias lg=lg-missing
 fi
 
+if has bat; then
+	alias cat="bat -p"
+	export BAT_THEME=zenburn
+fi
+
 if [[ -x ~/src/cloud/post-image.sh ]]; then
 	function post() {
 		post_url=$( ~/src/cloud/post-image.sh "$1" )
