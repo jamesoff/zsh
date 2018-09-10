@@ -207,6 +207,10 @@ if [[ -z $TMUX ]]; then
 		fi
 		unset sessions
 	fi
+else
+	if [[ ! -d $HOME/.tmux/plugins/tmux-sensible ]]; then
+		echo '==> tmux plugins not installed?'
+	fi
 fi
 
 _zcompdump="$HOME/.zcompdump"
