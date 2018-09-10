@@ -191,7 +191,7 @@ else
 		echo 'cloud post-image.sh is not available or not executable'
 	}
 fi
-alias post-recent-screenshot='post ~/Desktop/Screen\ Shot\ *(om[1])'
+alias post-recent-screenshot='post ~/Desktop/Screenshot\ *(om[1])'
 
 # use path of $HOME as proxy for detecting OS X without running uname
 if [[ $HOME =~ Users ]]; then
