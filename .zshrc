@@ -89,25 +89,6 @@ fi
 
 [ -d ~/.config ] && export XDG_CONFIG_HOME=~/.config
 
-if [ -d /Users/jseward ]; then
-	export KRB5CCNAME=/tmp/jseward_krb5cache
-	export KERB_ID=jseward
-	alias kinit="kinit -c $KRB5CCNAME $KERB_ID@AOL.COM"
-	export VAULT_ADDR=https://oe-vault.us-east-1.aolp-prd.aolcloud.net:8200
-	_zsh_load_info="$_zsh_load_info\nenabled work config"
-
-	if has yinit; then
-		alias ysock="export SSH_AUTH_SOCK=$HOME/.yubiagent/sock"
-		yinit() {
-			if ! [[ $SSH_AUTH_SOCK =~ yubiagent ]]; then
-				echo 'Switching to yubiagent SSH socket'
-				export SSH_AUTH_SOCK=$HOME/.yubiagent/sock
-			fi
-			command yinit $@
-		}
-	fi
-fi
-
 has flake8 && alias flake8="flake8 --ignore=E501"
 alias md5sum=md5
 
