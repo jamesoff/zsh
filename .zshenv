@@ -25,3 +25,5 @@ done
 NEWPATH=$(echo $PATH | awk -F: '{for (i=1;i<=NF;i++) { if ( !x[$i]++ ) printf("%s:",$i); }}')
 PATH=${NEWPATH:0:-1}
 unset DIRS NEWPATH
+
+[[ -d $HOME/src/botocoreAmazon ]] && export PYTHONPATH=$PYTHONPATH:$HOME/src/botocoreAmazon
