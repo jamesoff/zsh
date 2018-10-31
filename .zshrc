@@ -175,6 +175,12 @@ else
 fi
 alias post-recent-screenshot='post ~/Desktop/Screenshot\ *(om[1])'
 
+if [[ -f /usr/local/opt/nvm/nvm.sh ]]; then
+	_zsh_load_info="$_zsh_load_info\nset up nvm"
+	export NVM_DIR="$HOME/.nvm"
+	. "/usr/local/opt/nvm/nvm.sh"
+fi
+
 # use path of $HOME as proxy for detecting OS X without running uname
 if [[ $HOME =~ Users ]]; then
 	alias tidy-finder="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user"
