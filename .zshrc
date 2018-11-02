@@ -152,8 +152,9 @@ else
 fi
 
 if has bat; then
-	alias cat="bat -p"
+	alias cat=bat
 	export BAT_THEME=zenburn
+	export BAT_OPTS="-p"
 fi
 
 if [[ -x ~/src/cloud/post-image.sh ]]; then
