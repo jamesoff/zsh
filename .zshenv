@@ -16,6 +16,7 @@ if [[ -z $_zsh_done_env ]]; then
 		~/.local/bin
 		~/.cargo/bin
 		~/go/bin
+		~/.pyenv/bin
 		)
 
 	export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
