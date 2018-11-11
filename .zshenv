@@ -1,5 +1,5 @@
 if [[ -z $_zsh_done_env ]]; then
-	export _zsh_done_env=1
+	_zsh_done_env=1
 	# Ensure that a non-login, non-interactive shell has a defined environment.
 	if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
 	  source "${ZDOTDIR:-$HOME}/.zprofile"
@@ -27,9 +27,10 @@ if [[ -z $_zsh_done_env ]]; then
 
 	[[ -d $HOME/src/botocoreAmazon ]] && export PYTHONPATH=$PYTHONPATH:$HOME/src/botocoreAmazon
 
-	if hash "pyenv" &> /dev/null; then
+	if [[ -x "/usr/local/bin/pyenv" ]]; then
 		_zsh_load_info="$_zsh_load_info\ninitialised pyenv"
 		eval "$(pyenv init -)"
+		eval "$(pyenv virtualenv-init -)"
 	fi
 
 	path_bits=(${(s.:.)PATH})
