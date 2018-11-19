@@ -17,6 +17,7 @@ if [[ -z $_zsh_done_env ]]; then
 		~/.cargo/bin
 		~/go/bin
 		~/.pyenv/bin
+		~/src/sessionmanager-bundle/bin
 		)
 
 	export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin

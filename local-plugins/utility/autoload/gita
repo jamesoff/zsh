@@ -6,7 +6,7 @@ files=( $( git ls-files -m -o --exclude-standard | fzf \
 	--preview="git diff --color {}" \
 	--preview-window=down:75% \
 	--height 100% \
-	--bind "ctrl-u:preview-up,ctrl-d:preview-down" \
+	--bind "ctrl-u:preview-up,ctrl-d:preview-down,ctrl-c:execute(git add {+})+execute-silent(git commit)+abort" \
 	--ansi
 ) )
 if [[ ! -z $files ]]; then

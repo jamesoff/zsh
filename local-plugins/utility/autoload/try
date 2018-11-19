@@ -5,6 +5,8 @@ max_retry_time=${RETRY_TIME_MAX:-120}
 attempts=0
 
 SUCCESS=0
+echo "==> trying every $retry_time secs with exponential backoff to max $max_retry_time secs"
+echo "    (set RETRY_TIME and RETRY_TIME_MAX to control)"
 while [ $SUCCESS -eq 0 ]; do
 	$*
 	RESULT=$?
@@ -22,5 +24,6 @@ while [ $SUCCESS -eq 0 ]; do
 			retry_time=$(( retry_time * 2 ))
 		fi
 		echo "--> Retrying..."
+		echo
 	fi
 done
