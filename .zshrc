@@ -153,7 +153,7 @@ fi
 
 if has bat; then
 	alias cat=bat
-	export BAT_THEME=zenburn
+	export BAT_THEME=OneHalfDark
 	export BAT_OPTS="-p"
 fi
 
