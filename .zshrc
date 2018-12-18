@@ -1,6 +1,4 @@
 # get rid of fzf-tmux
-export ENHANCD_FILTER=fzf
-export ENHANCD_COMMAND=ecd
 export LANG=en_GB.UTF-8
 setopt TRANSIENT_RPROMPT
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
@@ -37,7 +35,6 @@ unset ZSH_LOCAL_PLUGINS
 if [[ $_zplugin_available == 1 ]]; then
 	zplugin light "mafredri/zsh-async"
 	zplugin light "jreese/zsh-titles"
-	zplugin light "b4b4r07/enhancd"
 	zplugin light "zsh-users/zsh-completions"
 	zplugin light "zdharma/fast-syntax-highlighting"
 	zplugin ice ver"develop"
