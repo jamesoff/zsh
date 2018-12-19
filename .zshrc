@@ -37,7 +37,6 @@ if [[ $_zplugin_available == 1 ]]; then
 	zplugin light "jreese/zsh-titles"
 	zplugin light "zsh-users/zsh-completions"
 	zplugin light "zdharma/fast-syntax-highlighting"
-	zplugin ice ver"develop"
 	zplugin light "zsh-users/zsh-autosuggestions"
 fi
 unset _zplugin_available
