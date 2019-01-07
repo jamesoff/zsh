@@ -1,0 +1,5 @@
+# vim: ft=zsh
+
+echo 'Reloading environment...'
+unset _zsh_done_env
+source "${ZDOTDIR:-$HOME/.zsh}/.zshenv"
