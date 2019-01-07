@@ -18,12 +18,13 @@ if [[ -z $_zsh_done_env ]]; then
 		~/go/bin
 		~/.pyenv/bin
 		~/src/sessionmanager-bundle/bin
+		/usr/local/opt/ruby/bin
 		)
 
 	export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
 	for d in $DIRS; do
 		if [ -d $d ]; then
-			export PATH=$PATH:$d
+			export PATH=$d:$PATH
 		fi
 	done
 
