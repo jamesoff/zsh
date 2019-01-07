@@ -11,6 +11,7 @@ options=(
 	'eu-central-1:Frankfurt'
 	'eu-west-1:Ireland'
 	'eu-west-2:London'
+	'eu-north-1:Stockholm'
 	'sa-east-1:Sao Paulo'
 	'us-east-1:North Carolina'
 	'us-east-2:Ohio'
