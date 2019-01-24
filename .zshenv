@@ -45,4 +45,8 @@ if [[ -z $_zsh_done_env ]]; then
 	unique_path_bits=(${(u)path_bits[@]})
 	unique_path=${(j.:.)unique_path_bits}
 	export PYTHONPATH=$unique_path
+
+	if [[ -z $MANPATH ]]; then
+		export MANPATH=$( man -w )
+	fi
 fi
