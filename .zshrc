@@ -220,4 +220,8 @@ unset _zcompdump
 
 # kick off a recompile of .zsh and the compdump file in the background, if needed
 ( autoload -U zrecompile && zrecompile -p ~/.zshrc -- ~/.zcompdump > /dev/null ) &!
+
+# kick off rehash of pyenv shims in background
+has pyenv && ( pyenv rehash ) &!
+
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
