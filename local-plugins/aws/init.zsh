@@ -19,3 +19,4 @@ autoload get-instances-id
 autoload get-instances
 autoload get-images
 autoload get-images-info
+autoload get-windows-password
