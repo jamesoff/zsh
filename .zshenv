@@ -7,6 +7,7 @@ if [[ -z $_zsh_done_env ]]; then
 
 	# Thing to add to PATH, if they exist
 	DIRS=(
+		/usr/local/opt/ruby/bin
 		/usr/local/bin
 		/usr/X11R6/bin
 		~/bin
@@ -19,6 +20,7 @@ if [[ -z $_zsh_done_env ]]; then
 		~/.pyenv/bin
 		~/src/sessionmanager-bundle/bin
 		/usr/local/opt/ruby/bin
+		/usr/local/lib/ruby/gems/2.6.0/bin
 		)
 
 	export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
@@ -49,4 +51,8 @@ if [[ -z $_zsh_done_env ]]; then
 	if [[ -z $MANPATH ]]; then
 		export MANPATH=$( man -w )
 	fi
+fi
+
+if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
+  source "${VIRTUAL_ENV}/bin/activate"
 fi
