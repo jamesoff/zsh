@@ -8,6 +8,12 @@ if [[ -n $SSH_TTY ]]; then
 	is_remote=1
 fi
 
+# launch a "local" session if one doesn't exist
+if ! tmux list-sessions | grep local > /dev/null 2> /dev/null; then
+	echo "--> Launching new server"
+	tmux new-session -d -s local
+fi
+
 if [[ -n $SSH_TTY || is_remote -eq 1 ]]; then
 	tmux new-session -A -t local -s remote
 elif [[ $COLUMNS -gt 200 ]]; then
