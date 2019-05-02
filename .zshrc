@@ -78,8 +78,8 @@ unset d ALIAS_DIRS
 export FZF_DEFAULT_OPTS='-e --height=15 --reverse'
 export FZF_TMUX=0
 if has rg; then
-	export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc"'
-	export FZF_CTRL_T_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc"'
+	export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc" 2> /dev/null'
+	export FZF_CTRL_T_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc" 2> /dev/null'
 	_zsh_load_info="$_zsh_load_info\nfound rg and set up fzf"
 fi
 
