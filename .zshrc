@@ -1,7 +1,7 @@
 # get rid of fzf-tmux
 export LANG=en_GB.UTF-8
 setopt TRANSIENT_RPROMPT
-export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+export ZSH_AUTOSUGGEST_STRATEGY=(history)
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export HOMEBREW_NO_ANALYTICS=1
 
