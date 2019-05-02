@@ -152,7 +152,7 @@ function prompt_sorin_git_info {
 
 function prompt_sorin_precmd_async {
   mwinit_output=$( mwinit -l 2> /dev/null )
-  if [[ -n $mwinit_output ]]; then
+  if [[ $? -eq 0 && -n $mwinit_output ]]; then
 	  _prompt_sorin_mwinit_status="${padlock_character}"
   else
 	  _prompt_sorin_mwinit_status=''
