@@ -22,6 +22,8 @@ if [[ -z $_zsh_done_env ]]; then
 		/usr/local/opt/ruby/bin
 		/usr/local/lib/ruby/gems/2.6.0/bin
 		~/.local/gem/bin
+		~/.yarn/bin
+		~/.config/yarn/global/node_modules/.bin
 		)
 
 	export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
