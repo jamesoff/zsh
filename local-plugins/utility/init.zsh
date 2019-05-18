@@ -137,7 +137,9 @@ alias pbc='pbcopy'
 alias pbp='pbpaste'
 
 # File Download
-if (( $+commands[curl] )); then
+if (( $+commands[http] )); then
+  alias get='http --download'
+elif (( $+commands[curl] )); then
   alias get='curl --continue-at - --location --progress-bar --remote-name --remote-time'
 elif (( $+commands[wget] )); then
   alias get='wget --continue --progress=bar --timestamping'
