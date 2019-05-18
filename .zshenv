@@ -54,6 +54,8 @@ if [[ -z $_zsh_done_env ]]; then
 	if [[ -z $MANPATH ]]; then
 		export MANPATH=$( man -w )
 	fi
+
+	export GEM_PATH=$HOME/.local/gem
 fi
 
 if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
