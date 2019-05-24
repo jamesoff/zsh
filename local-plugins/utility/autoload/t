@@ -14,7 +14,9 @@ if ! tmux list-sessions | grep local > /dev/null 2> /dev/null; then
 	tmux new-session -d -s local
 fi
 
-if [[ -n $SSH_TTY || is_remote -eq 1 ]]; then
+if [[ $TERM_PROGRAM == vscode ]]; then
+	tmux new-session -A -t local -s vscode
+elif [[ -n $SSH_TTY || is_remote -eq 1 ]]; then
 	tmux new-session -A -t local -s remote
 elif [[ $COLUMNS -gt 200 ]]; then
 	tmux new-session -A -t local -s fullscreen
