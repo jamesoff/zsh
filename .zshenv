@@ -24,6 +24,7 @@ if [[ -z $_zsh_done_env ]]; then
 		~/.local/gem/bin
 		~/.yarn/bin
 		~/.config/yarn/global/node_modules/.bin
+		"~/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin"
 		)
 
 	export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
