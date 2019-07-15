@@ -139,9 +139,9 @@ has docker && tidy-docker() {
 has fzf && autoload gita
 bindkey -e "^XG" git-commit-edit
 if has exa; then
-	alias lg='exa -l --git --color-scale'
-	alias ll='exa -l --color-scale'
-	alias lt='exa -l -T --git --color-scale'
+	alias lg='exa -l --git --color-scale --icons'
+	alias ll='exa -l --color-scale --icons'
+	alias lt='exa -l -T --git --color-scale --icons'
 	alias ls='exa'
 	_zsh_load_info="$_zsh_load_info\nfound exa and configured aliases"
 else
