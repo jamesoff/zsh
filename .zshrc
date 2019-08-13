@@ -4,6 +4,7 @@ setopt TRANSIENT_RPROMPT
 export ZSH_AUTOSUGGEST_STRATEGY=(history)
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export HOMEBREW_NO_ANALYTICS=1
+export SAM_CLI_TELEMETRY=0
 
 _zsh_load_info=""
 
