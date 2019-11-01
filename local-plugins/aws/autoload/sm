@@ -1,0 +1,5 @@
+# vim: ft=zsh
+
+local instance=${1?"Missing instance ID"}
+
+aws ssm start-session --target "$instance"

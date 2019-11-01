@@ -20,3 +20,4 @@ autoload get-instances
 autoload get-images
 autoload get-images-info
 autoload get-windows-password
+autoload sm
