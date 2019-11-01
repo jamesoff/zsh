@@ -1,70 +1,19 @@
 # vim: ft=zsh
 
-# Takes the format:
-# declare -A profiles
-# profiles[ACCOUNT_NAME]="ACCOUNT_ID ROLE_NAME"
-[ -f ~/.zsh/local-data/aws-profiles ] && source ~/.zsh/local-data/aws-profiles
-
-declare -A profiles
-
 local profile=$1
-local fixed=0
 
-if [[ -z $profile ]]; then
-	if [[ ! -z $AWS_PROFILE ]]; then
-		if [[ $AWS_PROFILE =~ "-fed$" ]]; then
-			echo "Renewing current profile"
-			profile=${AWS_PROFILE%"-fed"}
-			fixed=1
-		fi
-	fi
-
-	if [[ $fixed == 0 ]]; then
-		echo "usage: $0 <profile>"
-		echo "       known profiles: ${(k)profiles}"
-		return 1
-	fi
+if [[ $profile == "--clear" ]]; then
+	unset AWS_PROFILE
+	[[ -f $HOME/.cache/aws/profile ]] && rm -f $HOME/.cache/aws/profile
+	return 0
 fi
 
-target_profile="$profile-fed"
-profile_info=("${(@s/ /)profiles[$profile]}")
-
-if [[ -z $profile_info ]]; then
-	echo " unknown profile name"
-	return 1
-fi
-
-if grep -q -F -- "$target_profile" ~/.aws/credentials; then
-	expiry=$( aws configure get expiration --profile "$target_profile" )
-	expiry=${expiry%[+-][0-9][0-9]:[0-9]0}
-	# 2017-02-28 15:28:59+00:00
-	expiry_ts=$( date -j -f "%F %T" +%s "$expiry" )
-	now_ts=$( date +%s )
-	diff=$(( expiry_ts - now_ts ))
-	if [[ $diff > 300 ]]; then
-		echo " Current credentials have $diff seconds remaining, reusing."
-		export AWS_PROFILE="$profile-fed"
-		if [[ -z $AWS_DEFAULT_REGION ]]; then
-			echo " Setting default region."
-			export AWS_DEFAULT_REGION=us-east-1
-		fi
-		return 0
-	else
-		if [[ $diff > 0 ]]; then
-			echo " Current credentials have less than 5 minutes remaining, re-requesting."
-		fi
-	fi
-fi
-
-echo " Fetching credentials via awsfed..."
-if awsfed --role="$profile_info[2]" --account="$profile_info[1]" --profile="$profile-fed"; then
-	export AWS_PROFILE="$profile-fed"
-	if [[ -z $AWS_DEFAULT_REGION ]]; then
-		echo " Setting default region."
-		export AWS_DEFAULT_REGION=us-east-1
-	fi
+if grep -q -F -- "[$profile]" ~/.aws/credentials; then
+	export AWS_PROFILE=$profile
+	[[ -d $HOME/.cache/aws ]] || mkdir -p $HOME/.cache/aws
+	echo "$profile" >! $HOME/.cache/aws/profile
 	return 0
 else
-	echo " Failed to federate profile."
+	echo "Profile $profile doesn't exist in AWS credentials file."
 	return 1
 fi
