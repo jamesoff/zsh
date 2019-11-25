@@ -144,7 +144,15 @@ if has exa; then
 	alias lg='exa -l --git --color-scale --icons'
 	alias ll='exa -l --color-scale --icons'
 	alias lt='exa -l -T --git --color-scale --icons'
-	alias ls='exa'
+	exa-ls() {
+		if [[ $1 == "-ltr" ]]; then
+			shift
+			exa -l -tmodified -r $@
+		else
+			exa $@
+		fi
+	}
+	alias ls=exa-ls
 	_zsh_load_info="$_zsh_load_info\nfound exa and configured aliases"
 else
 	lg-missing() { echo 'exa is not installed :(' }
