@@ -153,6 +153,7 @@ if has exa; then
 		fi
 	}
 	alias ls=exa-ls
+	alias l="exa -1a"
 	_zsh_load_info="$_zsh_load_info\nfound exa and configured aliases"
 else
 	lg-missing() { echo 'exa is not installed :(' }
