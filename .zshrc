@@ -199,20 +199,38 @@ if [[ $HOME =~ Users ]]; then
 	alias tidy-finder="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user"
 fi
 
-# show available tmux sessions
-if [[ -z $TMUX ]]; then
-	if has tmux; then
-		sessions=$( tmux ls 2> /dev/null | awk '! /attached/ { sub(":", "", $1); print $1; }' | xargs echo )
-		if [[ ! -z $sessions ]]; then
-			echo "==> Available tmux sessions: $sessions; run 't' to attach"
+# show available tmux sessions; uses async if available to avoid slowing down launch
+_show_tmux_sessions() {
+	if [[ -z $TMUX ]]; then
+		if has tmux; then
+			sessions=$( tmux ls 2> /dev/null | awk '! /attached/ { sub(":", "", $1); print $1; }' | xargs echo )
+			if [[ ! -z $sessions ]]; then
+				echo "==> Available tmux sessions: $sessions; run 't' to attach"
+			fi
+			unset sessions
 		fi
-		unset sessions
+	else
+		if [[ ! -d $HOME/.tmux/plugins/tmux-sensible ]]; then
+			echo '==> tmux plugins not installed?'
+		fi
 	fi
+}
+
+_tmux_sessions_callback() {
+	if [[ -n $3 ]]; then
+		print
+		print $3
+	fi
+}
+
+if typeset -f async_init > /dev/null; then
+	async_start_worker tmux_sessions -n
+	async_register_callback tmux_sessions _tmux_sessions_callback
+	async_job tmux_sessions _show_tmux_sessions
 else
-	if [[ ! -d $HOME/.tmux/plugins/tmux-sensible ]]; then
-		echo '==> tmux plugins not installed?'
-	fi
+	_show_tmux_sessions
 fi
+
 
 _zcompdump="$HOME/.zcompdump"
 if [[ ! -f "$_zcompdump" ]]; then
