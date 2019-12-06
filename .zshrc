@@ -186,11 +186,12 @@ else
 fi
 alias post-recent-screenshot='post ~/Desktop/Screenshot\ *(om[1])'
 
-if [[ -f /usr/local/opt/nvm/nvm.sh ]]; then
+nvm_home="$XDG_CONFIG_HOME/nvm"  # as used by the installer from their site
+if [[ -f $nvm_home/nvm.sh ]]; then
 	_zsh_load_info="$_zsh_load_info\nset up nvm"
 	manpath=$MANPATH
-	export NVM_DIR="$HOME/.nvm"
-	. "/usr/local/opt/nvm/nvm.sh"
+	export NVM_DIR="$nvm_home/.nvm"
+	. "$nvm_home/nvm.sh"
 	export MANPATH=$manpath
 	unset manpath
 fi
