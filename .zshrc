@@ -148,6 +148,9 @@ if has exa; then
 		if [[ $1 == "-ltr" ]]; then
 			shift
 			exa -l -tmodified -r $@
+		elif [[ $1 == "-lt" ]]; then
+			shift
+			exa -l -tmodified $@
 		else
 			exa $@
 		fi
