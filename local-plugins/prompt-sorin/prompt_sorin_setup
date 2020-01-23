@@ -79,8 +79,11 @@ function prompt_space() {
 	fi
 	echo $max
 }
-HOSTNAME=$(hostname -s)
-export HOSTCOLOUR=$(string_hash $HOSTNAME:l 7)
+
+if [[ -z $HOSTCOLOUR ]]; then
+	$HOSTNAME=$(hostname -s)
+	export HOSTCOLOUR=$(string_hash $HOSTNAME:l 7)
+fi
 
 padlock_character=" "
 vpn_character=" "

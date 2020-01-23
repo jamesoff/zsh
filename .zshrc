@@ -1,3 +1,7 @@
+if [[ "$ZPROF" = true ]]; then
+  zmodload zsh/zprof
+fi
+
 # get rid of fzf-tmux
 export LANG=en_GB.UTF-8
 setopt TRANSIENT_RPROMPT
@@ -268,3 +272,7 @@ unset _zcompdump
 has pyenv && ( pyenv rehash ) &!
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
+
+if [[ "$ZPROF" = true ]]; then
+  zprof
+fi
