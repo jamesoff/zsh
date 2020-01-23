@@ -191,12 +191,19 @@ alias post-recent-screenshot='post ~/Desktop/Screenshot\ *(om[1])'
 
 nvm_home="$XDG_CONFIG_HOME/nvm"  # as used by the installer from their site
 if [[ -f $nvm_home/nvm.sh ]]; then
-	_zsh_load_info="$_zsh_load_info\nset up nvm"
-	manpath=$MANPATH
-	export NVM_DIR="$nvm_home/.nvm"
-	. "$nvm_home/nvm.sh"
-	export MANPATH=$manpath
-	unset manpath
+	_zsh_load_info="$_zsh_load_info\nset up nvm loader"
+	_zsh_load_nvm() {
+		echo "Loading nvm..."
+		manpath=$MANPATH
+		export NVM_DIR="$nvm_home/.nvm"
+		. "$nvm_home/nvm.sh"
+		export MANPATH=$manpath
+		unset manpath
+		nvm $@
+	}
+	nvm(){
+		_zsh_load_nvm
+	}
 fi
 
 # use path of $HOME as proxy for detecting OS X without running uname
