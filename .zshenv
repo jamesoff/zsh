@@ -24,7 +24,8 @@ if [[ -z $_zsh_done_env ]]; then
 		~/.local/gem/bin
 		~/.yarn/bin
 		~/.config/yarn/global/node_modules/.bin
-		"~/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin"
+		"~/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+		~/esp/xtensa-esp32-elf/bin
 		)
 
 	export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
@@ -62,3 +63,5 @@ fi
 if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
   source "${VIRTUAL_ENV}/bin/activate"
 fi
+
+alias reenv="unset _zsh_done_env; exec zsh"
