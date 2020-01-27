@@ -81,7 +81,7 @@ function prompt_space() {
 }
 
 if [[ -z $HOSTCOLOUR ]]; then
-	$HOSTNAME=$(hostname -s)
+	HOSTNAME=$(hostname -s)
 	export HOSTCOLOUR=$(string_hash $HOSTNAME:l 7)
 fi
 
