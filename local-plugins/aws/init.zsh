@@ -18,5 +18,5 @@ autoload get-images-info
 autoload get-windows-password
 autoload sm
 
-[[ -r $HOME/.cache/aws/profile ]] && export AWS_PROFILE=$(< $HOME/.cache/aws/profile )
-[[ -r $HOME/.cache/aws/region ]] && export AWS_DEFAULT_REGION=$(< $HOME/.cache/aws/region )
+[[ -z $AWS_PROFILE ]] && [[ -r $HOME/.cache/aws/profile ]] && export AWS_PROFILE=$(< $HOME/.cache/aws/profile )
+[[ -z $AWS_DEFAULT_REGION ]] && [[ -r $HOME/.cache/aws/region ]] && export AWS_DEFAULT_REGION=$(< $HOME/.cache/aws/region )
