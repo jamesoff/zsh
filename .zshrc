@@ -104,8 +104,6 @@ else
 	export VISUAL=vim
 fi
 
-has code-insiders && alias code=code-insiders
-
 autoload colors && colors
 REPORTTIME=10
 TIMEFMT="$fg[green]%J$reset_color  $fg[blue]%U user $fg[yellow]%S system $fg[magenta]%P cpu $fg[red]%*E total"
