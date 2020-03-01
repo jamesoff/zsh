@@ -35,8 +35,6 @@ if [[ -z $_zsh_done_env ]]; then
 		fi
 	done
 
-	[[ -d $HOME/src/botocoreAmazon ]] && export PYTHONPATH=$PYTHONPATH:$HOME/src/botocoreAmazon
-
 	if [[ -x "/usr/local/bin/pyenv" ]]; then
 		_zsh_load_info="$_zsh_load_info\ninitialised pyenv"
 		eval "$(pyenv init - --no-rehash)"
