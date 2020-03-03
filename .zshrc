@@ -204,7 +204,7 @@ if [[ -f $nvm_home/nvm.sh ]]; then
 		nvm $@
 	}
 	nvm(){
-		_zsh_load_nvm
+		_zsh_load_nvm $@
 	}
 fi
 
