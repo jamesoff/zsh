@@ -26,6 +26,7 @@ if [[ -z $_zsh_done_env ]]; then
 		~/.config/yarn/global/node_modules/.bin
 		"~/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 		~/esp/xtensa-esp32-elf/bin
+		~/.rvm/bin
 		)
 
 	export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
