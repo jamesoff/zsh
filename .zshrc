@@ -27,8 +27,8 @@ zstyle ':prezto:module:editor' key-bindings 'emacs'
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 # Prepare prompt theme
-fpath=(${ZDOTDIR:-$HOME/.zsh}/local-plugins/prompt-sorin $fpath)
-autoload -Uz promptinit && promptinit
+#fpath=(${ZDOTDIR:-$HOME/.zsh}/local-plugins/prompt-sorin $fpath)
+#autoload -Uz promptinit && promptinit
 
 [ -d /usr/local/share/zsh/site-functions ] && fpath=(/usr/local/share/zsh/site-functions $fpath)
 
@@ -50,7 +50,7 @@ unset _zplugin_available
 unsetopt AUTO_CD
 
 # Set up prompt
-prompt sorin
+#prompt sorin
 zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{31}%%%f%b'
 zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{1}$%f%b'
 
@@ -273,4 +273,13 @@ export ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 if [[ "$ZPROF" = true ]]; then
   zprof
+fi
+
+if [[ -x /Users/sewardjm/src/starship/target/debug/starship ]]; then
+	_zsh_load_info="$_zsh_load_info\nusing customised starship"
+	eval $(/Users/sewardjm/src/starship/target/debug/starship init zsh)
+else
+	if has starship; then
+		eval $(starship init zsh)
+	fi
 fi
