@@ -7,6 +7,7 @@ if [[ -z $_zsh_done_env ]]; then
 
 	# Thing to add to PATH, if they exist
 	DIRS=(
+		~/.toolbox/bin
 		/usr/local/opt/ruby/bin
 		/usr/local/bin
 		/usr/X11R6/bin
@@ -56,7 +57,7 @@ if [[ -z $_zsh_done_env ]]; then
 		export MANPATH=$( man -w )
 	fi
 
-	export GEM_PATH=$HOME/.local/gem
+	#export GEM_PATH=$HOME/.local/gem
 fi
 
 if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
