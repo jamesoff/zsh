@@ -49,8 +49,14 @@ On macOS you can install all of those with homebrew.
 
 ## Installing
 
+# macOS
+
+* Install homebrew: https://brew.sh
+* Install a suitable font: `brew tap homebrew/cask-fonts && brew cask install font-firacode-nerd-font`
+* Install zsh and utilities used: `brew install zsh fzf rg exa fd pyenv pyenv-virtualenv bat`
+* If you would like to use the Starship prompt, `brew install starship`
 * clone this repo to `~/.zsh`: `git clone https://github.com/jamesoff/zsh.git ~/.zsh`
-* link files: `for i in .zshrc .zprofile .zshenv; do ln -s "~/$i" "~/.zsh/$i"; done`
+* link files: `for i in .zshrc .zprofile .zshenv; do ln -s "$HOME/.zsh/$i" "$HOME/$i"; done`
 * install zplugin: `mkdir -p ~/.zplugin && git clone https://github.com/zdharma/zplugin.git ~/.zplugin/bin`
 * when you run zsh for the first time, zplugin will download and install the plugins required
 
