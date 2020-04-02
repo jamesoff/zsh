@@ -8,7 +8,9 @@ if [[ -z $_zsh_done_env ]]; then
 	if [[ -x "/usr/local/bin/pyenv" ]]; then
 		_zsh_load_info="$_zsh_load_info\ninitialised pyenv"
 		eval "$(pyenv init - --no-rehash)"
-		eval "$(pyenv virtualenv-init -)"
+		if [[ -x "/usr/local/bin/pyenv-virtualenv" ]]; then
+			eval "$(pyenv virtualenv-init -)"
+		fi
 	fi
 
 	# Thing to add to PATH, if they exist
