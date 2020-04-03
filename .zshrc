@@ -277,7 +277,7 @@ fi
 
 if [[ -x $HOME/src/starship/target/debug/starship ]]; then
 	_zsh_load_info="$_zsh_load_info\nusing customised starship"
-	eval $( $HOME/Users/sewardjm/src/starship/target/debug/starship init zsh )
+	eval $( $HOME/src/starship/target/debug/starship init zsh )
 else
 	if has starship; then
 		eval $( starship init zsh )

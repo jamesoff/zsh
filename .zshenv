@@ -5,11 +5,13 @@ if [[ -z $_zsh_done_env ]]; then
 	  source "${ZDOTDIR:-$HOME}/.zprofile"
 	fi
 
+	export PATH="/usr/local/bin:$PATH"
+
 	if [[ -x "/usr/local/bin/pyenv" ]]; then
 		_zsh_load_info="$_zsh_load_info\ninitialised pyenv"
-		eval "$(pyenv init - --no-rehash)"
+		eval "$(/usr/local/bin/pyenv init - --no-rehash)"
 		if [[ -x "/usr/local/bin/pyenv-virtualenv" ]]; then
-			eval "$(pyenv virtualenv-init -)"
+			eval "$(/usr/local/bin/pyenv virtualenv-init -)"
 		fi
 	fi
 
