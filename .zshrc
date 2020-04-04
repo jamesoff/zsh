@@ -13,6 +13,14 @@ export HOMEBREW_AUTO_UPDATE_SECS=86400
 
 _zsh_load_info=""
 
+_load_debug() {
+	_zsh_load_info="$_zsh_load_info\n$1"
+}
+
+show_load_debug() {
+	echo $_zsh_load_info
+}
+
 # Check for and load zplugin
 if [ ! -f ~/.zplugin/bin/zplugin.zsh ]; then
 	echo "Missing zplugin; expect errors!"
@@ -34,7 +42,7 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 ZSH_LOCAL_PLUGINS="$HOME/.zsh/local-plugins"
 for plugin in $ZSH_LOCAL_PLUGINS/*(/); do
-	[ -f "$plugin/init.zsh" ] && source "$plugin/init.zsh"
+	[ -f "$plugin/init.zsh" ] && _load_debug "sourcing local plugin $plugin" && source "$plugin/init.zsh"
 done
 unset ZSH_LOCAL_PLUGINS
 
@@ -76,7 +84,7 @@ ALIAS_DIRS=(
 for d in "${(@k)ALIAS_DIRS}"; do
 	if [ -d "$d" ]; then
 		hash -d $ALIAS_DIRS[$d]=$d
-		_zsh_load_info="$_zsh_load_info\naliased dir $d"
+		_load_debug "aliased dir $d"
 	fi
 done
 unset d ALIAS_DIRS
@@ -86,7 +94,7 @@ export FZF_TMUX=0
 if has rg; then
 	export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc" 2> /dev/null'
 	export FZF_CTRL_T_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc" 2> /dev/null'
-	_zsh_load_info="$_zsh_load_info\nfound rg and set up fzf"
+	_load_debug "found rg and set up fzf"
 fi
 
 [ -d ~/.config ] && export XDG_CONFIG_HOME=~/.config
@@ -110,7 +118,7 @@ TIMEFMT="$fg[green]%J$reset_color  $fg[blue]%U user $fg[yellow]%S system $fg[mag
 
 for f in $FILES; do
 	if [ -f $f ]; then
-		_zsh_load_info="$_zsh_load_info\nsourced file $f"
+		_load_debug "sourced file $f"
 		source $f
 	fi
 done
@@ -160,7 +168,7 @@ if has exa; then
 	alias ls=exa-ls
 	alias l="exa -1a"
 	alias la="exa -a"
-	_zsh_load_info="$_zsh_load_info\nfound exa and configured aliases"
+	_load_debug "found exa and configured aliases"
 else
 	lg-missing() { echo 'exa is not installed :(' }
 	alias lg=lg-missing
@@ -193,7 +201,7 @@ alias post-recent-screenshot='post ~/Desktop/Screenshot\ *(om[1])'
 
 nvm_home="$XDG_CONFIG_HOME/nvm"  # as used by the installer from their site
 if [[ -f $nvm_home/nvm.sh ]]; then
-	_zsh_load_info="$_zsh_load_info\nset up nvm loader"
+	_load_debug "set up nvm loader"
 	_zsh_load_nvm() {
 		echo "Loading nvm..."
 		manpath=$MANPATH
@@ -252,16 +260,16 @@ _zcompdump="$HOME/.zcompdump"
 if [[ ! -f "$_zcompdump" ]]; then
 	# Completion cache is older than 24h, regenerate
 	compinit -d $_zcompdump
-	_zsh_load_info="$_zsh_load_info\nran compinit (missing)"
+	_load_debug "ran compinit (missing)"
 elif [[ -n $_zcompdump(#qN.mh+24) ]]; then
 	# Completion cache is older than 24h, regenerate
 	rm -f $_zcompdump
 	compinit -d $_zcompdump
-	_zsh_load_info="$_zsh_load_info\nran compinit (too old)"
+	_load_debug "ran compinit (too old)"
 else
 	# Completion cache is newish, load quickly
 	compinit -C;
-	_zsh_load_info="$_zsh_load_info\nused compinit cache"
+	_load_debug "used compinit cache"
 fi
 unset _zcompdump
 
@@ -273,15 +281,11 @@ has pyenv && ( pyenv rehash ) &!
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 
+launch_starship
+
+unset -f _load_debug launch_starship
+
 if [[ "$ZPROF" = true ]]; then
   zprof
 fi
 
-if [[ -x $HOME/src/starship/target/debug/starship ]]; then
-	_zsh_load_info="$_zsh_load_info\nusing customised starship"
-	eval $( $HOME/src/starship/target/debug/starship init zsh )
-else
-	if has starship; then
-		eval $( starship init zsh )
-	fi
-fi
