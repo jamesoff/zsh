@@ -19,7 +19,6 @@ if [[ -z $_zsh_done_env ]]; then
 	DIRS=(
 		~/.toolbox/bin
 		/usr/local/opt/ruby/bin
-		/usr/local/bin
 		/usr/X11R6/bin
 		~/bin
 		~/Library/Python/2.7/bin
