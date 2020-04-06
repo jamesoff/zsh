@@ -7,14 +7,6 @@ if [[ -z $_zsh_done_env ]]; then
 
 	export PATH="/usr/local/bin:$PATH"
 
-	if [[ -x "/usr/local/bin/pyenv" ]]; then
-		_zsh_load_info="$_zsh_load_info\ninitialised pyenv"
-		eval "$(/usr/local/bin/pyenv init - --no-rehash)"
-		if [[ -x "/usr/local/bin/pyenv-virtualenv" ]]; then
-			eval "$(/usr/local/bin/pyenv virtualenv-init -)"
-		fi
-	fi
-
 	# Thing to add to PATH, if they exist
 	DIRS=(
 		~/.toolbox/bin
@@ -45,6 +37,14 @@ if [[ -z $_zsh_done_env ]]; then
 			export PATH=$d:$PATH
 		fi
 	done
+
+	if [[ -x "/usr/local/bin/pyenv" ]]; then
+		_zsh_load_info="$_zsh_load_info\ninitialised pyenv"
+		eval "$(/usr/local/bin/pyenv init - --no-rehash)"
+		if [[ -x "/usr/local/bin/pyenv-virtualenv" ]]; then
+			eval "$(/usr/local/bin/pyenv virtualenv-init -)"
+		fi
+	fi
 
 	path_bits=(${(s.:.)PATH})
 	unique_path_bits=(${(u)path_bits[@]})

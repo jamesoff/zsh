@@ -1,0 +1,7 @@
+# vim: ft=zsh
+
+path_bits=(${(s.:.)PATH})
+for i in $path_bits; do
+	echo $i
+done
+
