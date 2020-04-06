@@ -1,5 +1,5 @@
 launch_starship() {
-	local _latest_starship=
+	local _latest_starship=starship
 	local _starship_time
 
 	if [[ -x $HOME/src/starship/target/release/starship ]]; then
