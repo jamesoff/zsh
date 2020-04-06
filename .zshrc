@@ -21,6 +21,8 @@ show_load_debug() {
 	echo $_zsh_load_info
 }
 
+source ${ZDOTDIR:-$HOME/.zsh}/init-path.zsh
+
 # Check for and load zplugin
 if [ ! -f ~/.zplugin/bin/zplugin.zsh ]; then
 	echo "Missing zplugin; expect errors!"
