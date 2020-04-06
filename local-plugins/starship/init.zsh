@@ -1,5 +1,5 @@
 launch_starship() {
-	local _latest_starship=starship
+	local _latest_starship
 	local _starship_time
 
 	if [[ -x $HOME/src/starship/target/release/starship ]]; then
@@ -20,7 +20,7 @@ launch_starship() {
 		fi
 	fi
 
-	if [[ -z _latest_starship ]]; then
+	if [[ -z $_latest_starship ]]; then
 		if has starship; then
 			_load_debug "using installed starship"
 			eval $( starship init zsh )
