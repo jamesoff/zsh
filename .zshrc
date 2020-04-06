@@ -151,6 +151,7 @@ has docker && tidy-docker() {
 }
 
 has fzf && autoload gita
+has fzf && [[ ! -f $HOME/.fzf.zsh ]] && echo "Missing .fzf.zsh but fzf is installed. Run /usr/local/opt/fzf/install to finish setup!"
 bindkey -e "^XG" git-commit-edit
 if has exa; then
 	alias lg='exa -l --git --color-scale --icons'
