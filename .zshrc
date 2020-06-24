@@ -97,6 +97,10 @@ if has rg; then
 	export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc" 2> /dev/null'
 	export FZF_CTRL_T_COMMAND='rg --files --no-ignore --hidden --glob "!.git/*" --glob "!*.pyc" 2> /dev/null'
 	_load_debug "found rg and set up fzf"
+	if [[ -r $HOME/.ripgreprc ]]; then
+		_load_debug "set ripgrep config file"
+		export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
+	fi
 fi
 
 [ -d ~/.config ] && export XDG_CONFIG_HOME=~/.config
