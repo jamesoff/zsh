@@ -7,6 +7,12 @@ else
 fi
 
 CHOICE=$($AGCMD --smart-case --vimgrep $* | fzf -0 -1)
+WHERE="$( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "%s:%d:%d\n", $1, $2, $3 } ')"
+
 if [ ! -z "$CHOICE" ]; then
-	nvim "$( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "%s:%d:%d\n", $1, $2, $3 } ')"
+	if [[ $TERM_PROGRAM == "vscode" ]]; then
+		code --goto "$WHERE"
+	else
+		nvim "$WHERE"
+	fi
 fi
