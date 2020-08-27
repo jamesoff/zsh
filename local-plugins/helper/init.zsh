@@ -29,3 +29,15 @@ function coalesce {
   done
   return 1
 }
+
+function load-virtualenv {
+	if [[ -f .venv/bin/activate ]]; then
+		echo Loading virtualenv from .venv
+		source .venv/bin/activate
+	elif [[ -f .env/bin/activate ]]; then
+		echo Loading virtualenv from .env
+		source .env/env/bin/activate
+	else
+		echo No .venv or .env found
+	fi
+}
