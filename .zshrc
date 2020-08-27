@@ -223,6 +223,8 @@ if [[ -f $nvm_home/nvm.sh ]]; then
 	}
 fi
 
+has direnv && eval "$(direnv hook zsh)"
+
 # use path of $HOME as proxy for detecting OS X without running uname
 if [[ $HOME =~ Users ]]; then
 	alias tidy-finder="/System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -kill -r -domain local -domain user"
