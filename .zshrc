@@ -298,6 +298,19 @@ else
 fi
 unset _zcompdump
 
+if has isengardcli; then
+	if [[ -r $HOME/.cache/isengardcli-shell-profile ]]; then
+		_load_debug "using cached isengard shell-profile"
+		source $HOME/.cache/isengardcli-shell-profile
+	else
+		_load_debug "loading isengard shell-profile directly"
+		eval "$( isengardcli shell-profile )"
+	fi
+	# refresh the cache
+	[[ -d $HOME/.cache ]] || mkdir -p $HOME/.cache
+	isengardcli shell-profile >! $HOME/.cache/isengardcli-shell-profile &!
+fi
+
 # kick off a recompile of .zsh and the compdump file in the background, if needed
 ( autoload -U zrecompile && zrecompile -p ~/.zshrc -- ~/.zcompdump > /dev/null ) &!
 
