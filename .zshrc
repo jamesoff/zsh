@@ -21,7 +21,7 @@ fi
 
 _load_debug() {
 	if [[ -n $_has_gdate ]]; then
-		now=$(gdate +%s.%N)
+		now=$(printf "%.*f" 6 $( gdate +%s.%N))
 		duration=$(printf '%.*f' 4 "$(($now - $_last_event))")
 		_last_event=$now
 	else
