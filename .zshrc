@@ -322,7 +322,7 @@ export ZSH_AUTOSUGGEST_USE_ASYNC=1
 launch_starship
 
 _load_debug "fin"
-unset -f _load_debug launch_starship _has_gdate
+unset -f _load_debug launch_starship
 
 if [[ "$ZPROF" = true ]]; then
   zprof
