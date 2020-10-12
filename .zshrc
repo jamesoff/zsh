@@ -12,15 +12,30 @@ export SAM_CLI_TELEMETRY=0
 export HOMEBREW_AUTO_UPDATE_SECS=86400
 
 _zsh_load_info=""
+if hash gdate; then
+	_has_gdate=1;
+	_last_event=$(gdate +%s.%N)
+else
+	_zsh_load_info="missing gdate, timestamps not available"
+fi
 
 _load_debug() {
-	_zsh_load_info="$_zsh_load_info\n$1"
+	if [[ -n $_has_gdate ]]; then
+		now=$(gdate +%s.%N)
+		duration=$(printf '%.*f' 4 "$(($now - $_last_event))")
+		_last_event=$now
+	else
+		now=""
+		duration=""
+	fi
+	_zsh_load_info="$_zsh_load_info ($duration)\n$now $1"
 }
 
-show_load_debug() {
+show-load-debug() {
 	echo $_zsh_load_info
 }
 
+_load_debug "initialising paths"
 source ${ZDOTDIR:-$HOME/.zsh}/init-path.zsh
 
 # Check for and load zplugin
@@ -49,6 +64,7 @@ done
 unset ZSH_LOCAL_PLUGINS
 
 if [[ $_zplugin_available == 1 ]]; then
+	_load_debug "loading zplugins"
 	zplugin light "mafredri/zsh-async"
 	zplugin light "jreese/zsh-titles"
 	zplugin light "zsh-users/zsh-completions"
@@ -264,8 +280,8 @@ else
 	_show_tmux_sessions
 fi
 
-
 _zcompdump="$HOME/.zcompdump"
+_load_debug "loading completions"
 if [[ ! -f "$_zcompdump" ]]; then
 	# Completion cache is older than 24h, regenerate
 	compinit -d $_zcompdump
@@ -292,7 +308,8 @@ export ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 launch_starship
 
-unset -f _load_debug launch_starship
+_load_debug "fin"
+unset -f _load_debug launch_starship _has_gdate
 
 if [[ "$ZPROF" = true ]]; then
   zprof
