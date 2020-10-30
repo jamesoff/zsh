@@ -1,6 +1,6 @@
-#compdef sm
+#compdef sm-rdp
 
-function __instance_id() {
+function __instance_names() {
 	local -a instance_ids
 
 	zstyle -s ":completion:${curcontext}:" cache-policy update_policy
