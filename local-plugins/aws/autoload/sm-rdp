@@ -1,11 +1,11 @@
 # vim: ft=zsh
 
 local instance=${1?"Missing instance ID"}
-local local_port=${2?"3389"}
+local local_port=${2:-"3389"}
 
 echo "--> Starting SSM port forward from :$local_port to ${instance}:3389"
 
 try aws ssm start-session \
-	--target i-0afbea7309527e536 \
+	--target "$instance" \
 	--document-name AWS-StartPortForwardingSession \
 	--parameters '{"portNumber":["3389"],"localPortNumber":["'"$local_port"'"]}'
