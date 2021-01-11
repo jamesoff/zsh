@@ -12,7 +12,7 @@ export SAM_CLI_TELEMETRY=0
 export HOMEBREW_AUTO_UPDATE_SECS=86400
 
 _zsh_load_info=""
-if hash gdate; then
+if hash gdate 2> /dev/null; then
 	_has_gdate=1;
 	_last_event=$(gdate +%s.%N)
 else
