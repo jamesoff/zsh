@@ -309,6 +309,8 @@ if has isengardcli; then
 	# refresh the cache
 	[[ -d $HOME/.cache ]] || mkdir -p $HOME/.cache
 	isengardcli shell-profile >! $HOME/.cache/isengardcli-shell-profile &!
+	# set up autocomplete
+	eval "$(isengardcli shell-autocomplete)" &!
 fi
 
 # kick off a recompile of .zsh and the compdump file in the background, if needed
