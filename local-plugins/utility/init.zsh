@@ -216,3 +216,5 @@ function string_hash() {
 	HASHVAL=$(( $HASHVAL + 1 ))
 	echo $HASHVAL
 }
+
+function lolcow() { cowsay "$@" | lolcat -t }
