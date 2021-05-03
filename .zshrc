@@ -66,7 +66,7 @@ unset ZSH_LOCAL_PLUGINS
 if [[ $_zplugin_available == 1 ]]; then
 	_load_debug "loading zplugins"
 	zplugin light "mafredri/zsh-async"
-	zplugin light "jreese/zsh-titles"
+#	zplugin light "jreese/zsh-titles"
 	zplugin light "zsh-users/zsh-completions"
 	zplugin light "zdharma/fast-syntax-highlighting"
 	zplugin light "zsh-users/zsh-autosuggestions"
