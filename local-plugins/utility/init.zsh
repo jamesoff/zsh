@@ -5,7 +5,7 @@ zle -N git-commit-edit
 
 alias rv='agvim'
 alias av='agvim'
-alias youtube-dl-audio='youtube-dl -x --audio-format m4a'
+alias youtube-dl-audio='youtube-dl -x --audio-format flac'
 #
 # Defines general aliases and functions.
 #
