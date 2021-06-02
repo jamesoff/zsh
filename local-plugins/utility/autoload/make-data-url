@@ -1,0 +1,5 @@
+# vim: ft=zsh
+
+image=${1?missing filename}
+mime=$( file --mime --brief "$image" | cut -d\; -f1 )
+echo "data:${mime};base64,$( base64 -i "$image" )"
