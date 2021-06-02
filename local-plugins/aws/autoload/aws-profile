@@ -4,6 +4,9 @@ local profile=$1
 
 if [[ $profile == "--clear" ]]; then
 	unset AWS_PROFILE
+	unset AWS_ACCESS_KEY_ID
+	unset AWS_SECRET_ACCESS_KEY
+	unset AWS_SESSION_TOKEN
 	[[ -f $HOME/.cache/aws/profile ]] && rm -f $HOME/.cache/aws/profile
 	return 0
 fi
