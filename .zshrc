@@ -317,6 +317,7 @@ fi
 ( autoload -U zrecompile && zrecompile -p ~/.zshrc -- ~/.zcompdump > /dev/null ) &!
 
 # kick off rehash of pyenv shims in background
+has pyenv && eval "$(pyenv init - --no-rehash)"
 has pyenv && ( pyenv rehash ) &!
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1

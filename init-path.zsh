@@ -40,7 +40,7 @@ if [[ -z $_zsh_done_env ]]; then
 
 	if [[ -x "/usr/local/bin/pyenv" ]]; then
 		_zsh_load_info="$_zsh_load_info\ninitialised pyenv"
-		eval "$(/usr/local/bin/pyenv init - --no-rehash)"
+		eval "$(/usr/local/bin/pyenv init --path)"
 		if [[ -x "/usr/local/bin/pyenv-virtualenv" ]]; then
 			eval "$(/usr/local/bin/pyenv virtualenv-init -)"
 		fi
