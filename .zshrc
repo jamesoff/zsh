@@ -128,7 +128,9 @@ if has nvim; then
 	alias vim=nvim
 	export EDITOR=nvim
 	export VISUAL=nvim
-	export MANPAGER="nvim -c 'set ft=man' -"
+	export MANPAGER='nvim +Man!'
+	export MANWIDTH=999
+	alias ss="nvim --cmd 'let g:startify_disable_at_vimenter = 1' +SrcSearch"
 else
 	export EDITOR=vim
 	export VISUAL=vim
