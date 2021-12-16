@@ -1,0 +1,12 @@
+method=${1?Missing method name}
+payload=${2?Missing payload}
+
+curl -b ~/.midway/cookie -c ~/.midway/cookie -L -X POST \
+        --header "X-Amz-Target: $method" \
+        --header "Content-Encoding: amz-1.0" \
+        --header "Content-Type: application/json; charset=UTF-8"\
+        -d "$payload" \
+        https://isengard-service.amazon.com
+
+
+# vim: ft=zsh
