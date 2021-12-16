@@ -333,3 +333,4 @@ if [[ "$ZPROF" = true ]]; then
   zprof
 fi
 
+export JAVA_TOOLS_OPTIONS="-Dlog4j2.formatMsgNoLookups=true"
