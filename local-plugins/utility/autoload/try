@@ -1,5 +1,7 @@
 # vim: ft=zsh
 
+zmodload zsh/mathfunc
+
 retry_time=${RETRY_TIME:-15}
 max_retry_time=${RETRY_TIME_MAX:-120}
 attempts=0
@@ -21,7 +23,7 @@ while [ $SUCCESS -eq 0 ]; do
 		echo "    Waiting to retry after ${retry_time}s..."
 		sleep "$retry_time"
 		if [[ $retry_time -lt $max_retry_time ]]; then
-			retry_time=$(( retry_time * 2 ))
+			retry_time=$(( int(retry_time * 1.2) ))
 		fi
 		echo "--> Retrying..."
 		echo
