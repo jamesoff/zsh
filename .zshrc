@@ -11,12 +11,12 @@ export HOMEBREW_NO_ANALYTICS=1
 export SAM_CLI_TELEMETRY=0
 export HOMEBREW_AUTO_UPDATE_SECS=86400
 
-_zsh_load_info=""
 if hash gdate 2> /dev/null; then
 	_has_gdate=1;
 	_last_event=$(gdate +%s.%N)
+	_zsh_load_info="hello world"
 else
-	_zsh_load_info="missing gdate, timestamps not available"
+	_zsh_load_info="missing gdate, timestamps not available (brew install coreutils)"
 fi
 
 _load_debug() {
@@ -24,28 +24,35 @@ _load_debug() {
 		now=$(printf "%.*f" 6 $( gdate +%s.%N))
 		duration=$(printf '%.*f' 4 "$(($now - $_last_event))")
 		_last_event=$now
+		_zsh_load_info="$_zsh_load_info ($duration)\n$now $1"
 	else
 		now=""
 		duration=""
+		_zsh_load_info="$_zsh_load_info \n$1"
 	fi
-	_zsh_load_info="$_zsh_load_info ($duration)\n$now $1"
 }
 
 show-load-debug() {
-	echo $_zsh_load_info
+	echo $_zsh_load_info | cat
 }
 
 _load_debug "initialising paths"
 source ${ZDOTDIR:-$HOME/.zsh}/init-path.zsh
 
-# Check for and load zplugin
-if [ ! -f ~/.zplugin/bin/zplugin.zsh ]; then
-	echo "Missing zplugin; expect errors!"
-	echo "Fix: mkdir ~/.zplugin && git clone https://github.com/zdharma/zplugin.git ~/.zplugin/bin"
-	_zplugin_available=0
-else
-	source ~/.zplugin/bin/zplugin.zsh
+if [ -d /opt/homebrew/opt/zplug ]; then
+	export ZPLUG_HOME=/opt/homebrew/opt/zplug
+	source $ZPLUG_HOME/init.zsh
 	_zplugin_available=1
+	_load_debug "found zplug in /opt"
+elif [ -d /usr/local/opt/zplug ]; then
+	export ZPLUG_HOME=/usr/local/opt/zplug
+	source $ZPLUG_HOME/init.zsh
+	_zplugin_available=1
+	_load_debug "found zplug in /usr"
+else
+	echo "Missing zplug"
+	_load_debug "could not find zplug"
+	_zplugin_available=0
 fi
 
 zstyle ':prezto:module:editor' key-bindings 'emacs'
@@ -65,11 +72,20 @@ unset ZSH_LOCAL_PLUGINS
 
 if [[ $_zplugin_available == 1 ]]; then
 	_load_debug "loading zplugins"
-	zplugin light "mafredri/zsh-async"
-#	zplugin light "jreese/zsh-titles"
-	zplugin light "zsh-users/zsh-completions"
-	zplugin light "zdharma/fast-syntax-highlighting"
-	zplugin light "zsh-users/zsh-autosuggestions"
+	zplug "mafredri/zsh-async"
+	zplug "zsh-users/zsh-completions"
+	zplug "zdharma/fast-syntax-highlighting"
+	zplug "zsh-users/zsh-autosuggestions"
+
+	if ! zplug check --verbose; then
+		printf "Install? [y/N]: "
+		if read -q; then
+			echo; zplug install
+		fi
+	fi
+
+	# Then, source plugins and add commands to $PATH
+	zplug load
 fi
 unset _zplugin_available
 
@@ -95,8 +111,8 @@ FILES=(
 # Dirs to alias, if they exist
 typeset -A ALIAS_DIRS
 ALIAS_DIRS=(
-	~/src/chef_repo/cookbooks chef
 	~/src src
+	~/tmp tmp
 	)
 
 for d in "${(@k)ALIAS_DIRS}"; do
@@ -322,5 +338,3 @@ unset -f _load_debug launch_starship
 if [[ "$ZPROF" = true ]]; then
   zprof
 fi
-
-export JAVA_TOOLS_OPTIONS="-Dlog4j2.formatMsgNoLookups=true"

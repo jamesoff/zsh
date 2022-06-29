@@ -67,4 +67,6 @@ if [[ -n $VIRTUAL_ENV && -e "${VIRTUAL_ENV}/bin/activate" ]]; then
   source "${VIRTUAL_ENV}/bin/activate"
 fi
 
+export JAVA_TOOLS_OPTIONS="-Dlog4j2.formatMsgNoLookups=true"
+
 alias reenv="unset _zsh_done_env; exec zsh"
