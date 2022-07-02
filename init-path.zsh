@@ -9,6 +9,8 @@ if [[ -z $_zsh_done_env ]]; then
 
 	# Thing to add to PATH, if they exist
 	DIRS=(
+		/opt/homebrew/bin
+		/opt/homebrew/sbin
 		~/.toolbox/bin
 		/usr/local/opt/ruby/bin
 		/usr/X11R6/bin
@@ -38,11 +40,11 @@ if [[ -z $_zsh_done_env ]]; then
 		fi
 	done
 
-	if [[ -x "/usr/local/bin/pyenv" ]]; then
+	if [[ -x "${HOMEBREW_PREFIX:-/usr/local}/bin/pyenv" ]]; then
 		_zsh_load_info="$_zsh_load_info\ninitialised pyenv"
-		eval "$(/usr/local/bin/pyenv init --path)"
-		if [[ -x "/usr/local/bin/pyenv-virtualenv" ]]; then
-			eval "$(/usr/local/bin/pyenv virtualenv-init -)"
+		eval "$(${HOMEBREW_PREFIX:-/usr/local}/bin/pyenv init --path)"
+		if [[ -x "${HOMEBREW_PREFIX:-/usr/local}/bin/pyenv-virtualenv" ]]; then
+			eval "$(${HOMEBREW_PREFIX:-/usr/local}/bin/pyenv virtualenv-init -)"
 		fi
 	fi
 

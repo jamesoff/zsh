@@ -190,7 +190,7 @@ has docker && tidy-docker() {
 }
 
 has fzf && autoload gita
-has fzf && [[ ! -f $HOME/.fzf.zsh ]] && echo "Missing .fzf.zsh but fzf is installed. Run /usr/local/opt/fzf/install to finish setup!"
+has fzf && [[ ! -f $HOME/.fzf.zsh ]] && echo "Missing .fzf.zsh but fzf is installed. Run ${HOMEBREW_PREFIX:-/usr/local}/opt/fzf/install to finish setup!"
 bindkey -e "^XG" git-commit-edit
 if has exa; then
 	alias lg='exa -l --git --color-scale --icons'
@@ -326,8 +326,11 @@ fi
 ( autoload -U zrecompile && zrecompile -p ~/.zshrc -- ~/.zcompdump > /dev/null ) &!
 
 # kick off rehash of pyenv shims in background
-has pyenv && eval "$(pyenv init - --no-rehash)"
-has pyenv && ( pyenv rehash ) &!
+if has pyenv; then
+	_load_debug "setting up pyenv"
+	eval "$(pyenv init - --no-rehash)"
+	( pyenv rehash ) &!
+fi
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
 export ARCH=$(arch)
