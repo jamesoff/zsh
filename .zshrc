@@ -329,6 +329,7 @@ has pyenv && eval "$(pyenv init - --no-rehash)"
 has pyenv && ( pyenv rehash ) &!
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
+export ARCH=$(arch)
 
 launch_starship
 
