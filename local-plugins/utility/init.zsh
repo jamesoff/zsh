@@ -1,6 +1,6 @@
 fpath=( ~/.zsh/local-plugins/utility/autoload $fpath )
 
-autoload agvim try-ssh has git-commit-edit fv show-certificate t try reload-env pretty-path make-data-url
+autoload agvim try-ssh has git-commit-edit fv show-certificate t try reload-env pretty-path make-data-url venv
 zle -N git-commit-edit
 
 alias rv='agvim'

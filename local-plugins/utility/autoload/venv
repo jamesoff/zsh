@@ -1,0 +1,15 @@
+# vim: ft=zsh
+
+if [[ -f .venv/bin/activate ]]; then
+	source .venv/bin/activate
+else
+	echo No venv yet
+	python -V
+	local doit
+	read -q doit\?"Create with this version of Python? [y/n] "
+	if [[ $doit == "y" ]]; then
+		echo "Creating venv..."
+		python -m venv .venv
+		source .venv/bin/activate
+	fi
+fi
