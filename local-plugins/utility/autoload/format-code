@@ -1,0 +1,11 @@
+
+output=${2:-code.png}
+~/.local/bin/pygmentize \
+		-l "$1" \
+		-o "$output" \
+		-O font_name="JetBrains Mono Regular Nerd Font Complete" \
+		-O font_size=16 \
+		-O line_numbers=False
+echo Saved to $output
+
+# vim: ft=zsh
