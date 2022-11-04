@@ -142,6 +142,7 @@ alias md5sum=md5
 
 if has nvim; then
 	alias vim=nvim
+	alias vi=nvim
 	export EDITOR=nvim
 	export VISUAL=nvim
 	export MANPAGER='nvim +Man!'
