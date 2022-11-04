@@ -3,13 +3,31 @@
 if [[ -f .venv/bin/activate ]]; then
 	source .venv/bin/activate
 else
-	echo No venv yet
+	echo No venv yet.
 	python -V
-	local doit
-	read -q doit\?"Create with this version of Python? [y/n] "
-	if [[ $doit == "y" ]]; then
-		echo "Creating venv..."
+	if [[ $1 == "-y" ]]; then
 		python -m venv .venv
 		source .venv/bin/activate
+		python -m pip install -U pip
+		python -m pip install -U wheel
+		python -m pip install -r requirements.txt
+	else
+		local doit
+		read -q doit\?"Create with this version of Python? [y/n] "
+		if [[ $doit == "y" ]]; then
+			echo
+			echo "Creating venv..."
+			python -m venv .venv
+			source .venv/bin/activate
+			if [[ -f requirements.txt ]]; then
+				read -q doit\?"Install requirements? [y/n] "
+				if [[ $doit == "y" ]]; then
+					echo
+					python -m pip install -U pip
+					python -m pip install -U wheel
+					python -m pip install -r requirements.txt
+				fi
+			fi
+		fi
 	fi
 fi
