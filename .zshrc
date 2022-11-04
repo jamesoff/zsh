@@ -113,6 +113,7 @@ typeset -A ALIAS_DIRS
 ALIAS_DIRS=(
 	~/src src
 	~/tmp tmp
+	~/Library/Mobile\ Documents/com\~apple\~CloudDocs icloud
 	)
 
 for d in "${(@k)ALIAS_DIRS}"; do
