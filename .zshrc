@@ -135,6 +135,10 @@ if has rg; then
 		export RIPGREP_CONFIG_PATH=$HOME/.ripgreprc
 	fi
 fi
+if has fd; then
+	export FZF_ALT_C_COMMAND="fd -td"
+	_load_debug "set fzf to use fd"
+fi
 
 [ -d ~/.config ] && export XDG_CONFIG_HOME=~/.config
 
@@ -321,6 +325,7 @@ unset _zcompdump
 if has isengardcli; then
 	eval "$( command isengardcli shell-profile )" &!
 	eval "$( command isengardcli shell-autocomplete )" &!
+	alias i=isengardcli
 fi
 
 # kick off a recompile of .zsh and the compdump file in the background, if needed
