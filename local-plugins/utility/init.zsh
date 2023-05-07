@@ -223,6 +223,8 @@ function yt-dlp-720 {
 	yt-dlp \
 		-S 'height:720' \
 		--sponsorblock-mark all \
+		--embed-metadata \
+		--embed-thumbnail \
 		-o "%(uploader)s - %(upload_date)s - %(title)s.%(ext)s" \
 		"$1"
 }
@@ -231,6 +233,8 @@ function yt-dlp-1080 {
 	yt-dlp \
 		-S 'height:1080' \
 		--sponsorblock-mark all \
+		--embed-metadata \
+		--embed-thumbnail \
 		-o "%(uploader)s - %(upload_date)s - %(title)s.%(ext)s" \
 		"$1"
 }
