@@ -74,7 +74,7 @@ if [[ $_zplugin_available == 1 ]]; then
 	_load_debug "loading zplugins"
 	zplug "mafredri/zsh-async"
 	zplug "zsh-users/zsh-completions"
-	zplug "zdharma/fast-syntax-highlighting"
+	zplug "zdharma-continuum/fast-syntax-highlighting"
 	zplug "zsh-users/zsh-autosuggestions"
 
 	if ! zplug check --verbose; then
