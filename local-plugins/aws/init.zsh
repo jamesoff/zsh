@@ -19,6 +19,7 @@ autoload get-windows-password
 autoload sm
 autoload sm-rdp
 autoload isencurl
+autoload fix-aws-text
 
 [[ -z $AWS_PROFILE ]] && [[ -r $HOME/.cache/aws/profile ]] && export AWS_PROFILE=$(< $HOME/.cache/aws/profile )
 [[ -z $AWS_DEFAULT_REGION ]] && [[ -r $HOME/.cache/aws/region ]] && export AWS_DEFAULT_REGION=$(< $HOME/.cache/aws/region )
