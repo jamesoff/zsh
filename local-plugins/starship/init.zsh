@@ -23,10 +23,10 @@ launch_starship() {
 	if [[ -z $_latest_starship ]]; then
 		if has starship; then
 			_load_debug "using installed starship"
-			eval $( starship init zsh )
+			eval "$( starship init zsh )"
 		fi
 	else
 		_load_debug "using starship at $_latest_starship"
-		eval $( $_latest_starship init zsh)
+		eval "$( $_latest_starship init zsh)"
 	fi
 }
