@@ -49,6 +49,11 @@ elif [ -d /usr/local/opt/zplug ]; then
 	source $ZPLUG_HOME/init.zsh
 	_zplugin_available=1
 	_load_debug "found zplug in /usr"
+elif [ -d $HOME/.zplug ]; then
+	export ZPLUG_HOME=$HOME/.zplug
+	source $ZPLUG_HOME/init.zsh
+	_zplugin_available=1
+	_load_debug "found zplug in home"
 else
 	echo "Missing zplug"
 	_load_debug "could not find zplug"
