@@ -158,6 +158,11 @@ else
 	export VISUAL=vim
 fi
 
+if has xh; then
+	alias http=xh
+	_load_debug "aliased http to xh"
+fi
+
 autoload colors && colors
 REPORTTIME=10
 TIMEFMT="$fg[green]%J$reset_color  $fg[blue]%U user $fg[yellow]%S system $fg[magenta]%P cpu $fg[red]%*E total"
