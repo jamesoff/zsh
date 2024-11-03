@@ -59,7 +59,7 @@ if [[ -z $_zsh_done_env ]]; then
 	export PYTHONPATH=$unique_path
 
 	if [[ -z $MANPATH ]]; then
-		export MANPATH=$( man -w )
+		export MANPATH=$( man -w 2>/dev/null )
 	fi
 
 	#export GEM_PATH=$HOME/.local/gem
