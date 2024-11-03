@@ -344,7 +344,7 @@ if has pyenv; then
 fi
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=1
-export ARCH=$(arch)
+has arch && export ARCH=$(arch)
 
 launch_starship
 
